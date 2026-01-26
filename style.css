@@ -337,21 +337,6 @@ body {
   line-height: 1;
 }
 
-.title-dna {
-  color: #0f0f23;
-  text-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.2),
-    0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.title-me {
-  color: #fbcfe8;
-  -webkit-text-stroke: 1.5px #db2777;
-  text-shadow: 
-    0 2px 4px rgba(219, 39, 119, 0.6),
-    0 4px 12px rgba(219, 39, 119, 0.4),
-    0 0 20px rgba(219, 39, 119, 0.2);
-}
 
 .hero-slogan {
   font-size: clamp(1rem, 2.5vw, 1.3rem);
@@ -1022,3 +1007,18 @@ body {
 }
 
 
+.title-dna {
+  color: #000000;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title-me {
+  color: #FFC0CB;
+  -webkit-text-stroke: 1.5px #C67892;
+  text-shadow:
+    0 2px 4px rgba(198, 120, 146, 0.6),
+    0 4px 12px rgba(198, 120, 146, 0.4),
+    0 0 20px rgba(198, 120, 146, 0.2);
+}
