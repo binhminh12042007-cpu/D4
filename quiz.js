@@ -75,6 +75,9 @@ function loadQuestion() {
         }
         
         btn.onclick = () => {
+            // Play click sound on option selection
+            playClickSound();
+            
             scores[q.category] += opt.score;
             selections[current] = index; // Store selection
             
@@ -277,6 +280,47 @@ function setUniformOptionHeight() {
         if (opt.offsetHeight > maxHeight) maxHeight = opt.offsetHeight;
     });
     options.forEach(opt => opt.style.height = maxHeight + 'px');
+}
+
+// ====== CLICK SOUND EFFECT ======
+let clickSoundContext = null;
+
+function playClickSound() {
+    // Initialize audio context on first click (required by browsers)
+    if (!clickSoundContext) {
+        try {
+            clickSoundContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {
+            // AudioContext not supported
+            return;
+        }
+    }
+    
+    // Resume context if suspended (browser autoplay policy)
+    if (clickSoundContext.state === 'suspended') {
+        clickSoundContext.resume();
+    }
+    
+    // Create oscillator for click sound
+    const oscillator = clickSoundContext.createOscillator();
+    const gainNode = clickSoundContext.createGain();
+    
+    // Create a pleasant "pop" sound
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(800, clickSoundContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(300, clickSoundContext.currentTime + 0.08);
+    
+    // Volume envelope - quick attack, smooth decay
+    gainNode.gain.setValueAtTime(0.15, clickSoundContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, clickSoundContext.currentTime + 0.08);
+    
+    // Connect nodes
+    oscillator.connect(gainNode);
+    gainNode.connect(clickSoundContext.destination);
+    
+    // Play sound
+    oscillator.start(clickSoundContext.currentTime);
+    oscillator.stop(clickSoundContext.currentTime + 0.1);
 }
 
 // ====== ADVANCED DNA PARTICLE SYSTEM ======
