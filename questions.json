@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "category": "chronotype",
+    "question": "When do you feel most productive?",
+    "options": [
+      { "text": "Early morning (before 9am)", "score": 0 },
+      { "text": "Midday / afternoon", "score": 1 },
+      { "text": "Late night (after 11pm)", "score": 2 }
+    ]
+  },
+  {
+    "id": 2,
+    "category": "cortisol",
+    "question": "When you face sudden stress, you usually:",
+    "options": [
+      { "text": "Stay calm and plan", "score": 0 },
+      { "text": "Feel anxious but cope", "score": 1 },
+      { "text": "React strongly and quickly", "score": 2 }
+    ]
+  },
+  {
+    "id": 3,
+    "category": "dopamine",
+    "question": "When bored, you prefer to:",
+    "options": [
+      { "text": "Do something new/adventurous", "score": 2 },
+      { "text": "Switch task or scroll social", "score": 1 },
+      { "text": "Stick to routine", "score": 0 }
+    ]
+  },
+  {
+    "id": 4,
+    "category": "learning",
+    "question": "Which learning style fits you best?",
+    "options": [
+      { "text": "Visual (charts, diagrams)", "score": 0 },
+      { "text": "Auditory (listening, discussion)", "score": 1 },
+      { "text": "Kinesthetic (hands-on, movement)", "score": 2 }
+    ]
+  },
+  {
+    "id": 5,
+    "category": "stressEating",
+    "question": "When stressed, you usually:",
+    "options": [
+      { "text": "Eat more (snacks/comfort food)", "score": 2 },
+      { "text": "Lose appetite", "score": 0 },
+      { "text": "No big change", "score": 1 }
+    ]
+  }
+]
