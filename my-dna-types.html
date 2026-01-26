@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DNA.Me - My DNA Types</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .music-control {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 1000;
+    }
+    
+    .music-btn {
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .music-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .music-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+    
+    .music-btn.playing {
+      background: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    
+    .music-btn.playing svg {
+      animation: pulse 0.3s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    
+    .music-label {
+      color: white;
+      font-size: 0.85rem;
+      opacity: 0.9;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    
+    .app-title {
+      text-align: center;
+      padding: 10px 60px 24px;
+    }
+    
+    .app-title h1 {
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: -1px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .app-title h1 span:nth-child(1) { 
+      color: #5BA3C6;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .app-title h1 span:nth-child(2) { 
+      color: #E8A0B0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .dna-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 36px 40px;
+      width: min(500px, 94%);
+      margin: 0 auto;
+      box-shadow: var(--shadow-medium);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+    }
+    
+    .dna-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    
+    .dna-letters {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    
+    .dna-letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(135, 206, 235, 0.25), rgba(255, 182, 193, 0.25));
+      border: 2px solid rgba(135, 206, 235, 0.4);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-soft);
+    }
+    
+    .dna-letter:hover {
+      transform: translateY(-6px) scale(1.1);
+      background: linear-gradient(135deg, rgba(135, 206, 235, 0.45), rgba(255, 182, 193, 0.45));
+      border-color: rgba(135, 206, 235, 0.7);
+      box-shadow: 0 12px 30px rgba(135, 206, 235, 0.4);
+    }
+    
+    .dna-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    
+    .dna-category {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    
+    .category-label {
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: capitalize;
+    }
+    
+    .category-letter {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .action-btn {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(0, 0, 0, 0.06);
+      padding: 14px 28px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-soft);
+      text-decoration: none;
+    }
+    
+    .action-btn:hover {
+      background: #fff;
+      border-color: rgba(135, 206, 235, 0.5);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+      color: var(--text-primary);
+    }
+    
+    .action-btn.primary {
+      background: linear-gradient(135deg, var(--green-light), var(--green));
+      color: #fff;
+      border: none;
+    }
+    
+    .action-btn.primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(152, 216, 170, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Music Control -->
+  <div class="music-control">
+    <span class="music-label">Music</span>
+    <button class="music-btn" id="musicToggle" title="Toggle background music">
+      <svg id="musicIcon" viewBox="0 0 24 24">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Minecraft Clouds -->
+  <div class="clouds-container">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+      <div class="cloud cloud-4"></div>
+      <div class="cloud cloud-5"></div>
+      <div class="cloud cloud-6"></div>
+      <div class="cloud cloud-7"></div>
+      <div class="cloud cloud-8"></div>
+  </div>
+
+  <main class="container">
+    <div class="app-title">
+      <h1><span>DNA</span>.<span>Me</span></h1>
+    </div>
+
+    <div class="dna-card">
+      <h2>Your DNA Types</h2>
+      
+      <div class="dna-letters" id="dnaLetters">
+        <!-- DNA letters will be populated by JavaScript -->
+      </div>
+      
+      <div class="dna-categories" id="dnaCategories">
+        <!-- Category breakdown will be populated by JavaScript -->
+      </div>
+      
+      <div class="action-buttons">
+        <a href="quiz.html" class="action-btn primary">Retake Quiz</a>
+        <button id="shareBtn" class="action-btn">Share Results</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // DNA type page mappings
+    const typeMappings = {
+      chronotype: { M: 'chronotype-M.html', N: 'chronotype-N.html' },
+      cortisol: { R: 'cortisol-R.html', S: 'cortisol-S.html' },
+      dopamine: { D: 'dopamine-D.html', B: 'dopamine-B.html' },
+      learning: { I: 'learning-I.html', A: 'learning-A.html' },
+      eating: { R: 'eating-R.html', C: 'eating-C.html' }
+    };
+
+    const categoryLabels = {
+      chronotype: 'Chronotype',
+      cortisol: 'Cortisol',
+      dopamine: 'Dopamine',
+      learning: 'Learning',
+      eating: 'Eating'
+    };
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDNAResults();
+    });
+
+    function loadDNAResults() {
+      const storedResults = sessionStorage.getItem('dnaQuizResults');
+      const isComplete = sessionStorage.getItem('dnaQuizComplete');
+      
+      if (!storedResults || isComplete !== 'true') {
+        // No results found, show message
+        document.getElementById('dnaLetters').innerHTML = '<p style="text-align:center;color:#666;">Please complete the quiz first.</p>';
+        document.getElementById('dnaCategories').innerHTML = '';
+        return;
+      }
+      
+      const types = JSON.parse(storedResults);
+      
+      // Build DNA letters HTML
+      const lettersHTML = [];
+      const categoriesHTML = [];
+      
+      for (const [category, letter] of Object.entries(types)) {
+        // Create clickable letter
+        const pageUrl = typeMappings[category]?.[letter] || '#';
+        lettersHTML.push(`<a href="${pageUrl}" class="dna-letter" title="${categoryLabels[category]}">${letter}</a>`);
+        
+        // Create category row
+        categoriesHTML.push(`
+          <div class="dna-category">
+            <span class="category-label">${categoryLabels[category]}</span>
+            <a href="${pageUrl}" class="category-letter" style="text-decoration:none;color:inherit;">${letter}</a>
+          </div>
+        `);
+      }
+      
+      document.getElementById('dnaLetters').innerHTML = lettersHTML.join('');
+      document.getElementById('dnaCategories').innerHTML = categoriesHTML.join('');
+    }
+
+    // Music Player
+    var JoyfulMusic=function(){function MusicPlayer(){this.ctx=null;this.masterGain=null;this.isPlaying=false;this.isPaused=false;this.timer=null;this.noteIndex=0;this.arpIndex=0;this.bassIndex=0;this.startTime=0;this.pauseTime=0}MusicPlayer.prototype.init=function(){var e=this;if(this.ctx)return;this.ctx=new(AudioContext||webkitAudioContext);this.masterGain=this.ctx.createGain();this.masterGain.gain.value=0.18;this.masterGain.connect(this.ctx.destination)},MusicPlayer.prototype.playTone=function(e,t,n,r){var a=this.ctx.createOscillator(),i=this.ctx.createGain();a.type=e;a.frequency.value=t;i.gain.setValueAtTime(0,this.ctx.currentTime+n);i.gain.linearRampToValueAtTime(r,this.ctx.currentTime+n+0.015);i.gain.linearRampToValueAtTime(r*0.7,this.ctx.currentTime+n+0.08);i.gain.linearRampToValueAtTime(0,this.ctx.currentTime+n+0.3);a.connect(i);i.connect(this.masterGain);a.start(this.ctx.currentTime+n);a.stop(this.ctx.currentTime+n+0.35)},MusicPlayer.prototype.playArpeggio=function(e){var t=[261.63,329.63,392.00,523.25,392.00,523.25,659.25,783.99,659.25,523.25,392.00,329.63];for(var n=0;n<12;n++){var r=n*0.07;this.playTone('sine',t[(e+n)%12]*2,this.startTime+r,0.15)}},MusicPlayer.prototype.playBass=function(e){var t=[130.81,164.81,196.00,130.81];var n=[0,0.4,0.8,1.2];for(var r=0;r<4;r++){var a=this.ctx.createOscillator(),i=this.ctx.createGain();a.type='triangle';a.frequency.value=t[(e+r)%4];i.gain.setValueAtTime(0,this.ctx.currentTime+this.startTime+n[r]);i.gain.linearRampToValueAtTime(0.12,this.ctx.currentTime+this.startTime+n[r]+0.05);i.gain.linearRampToValueAtTime(0,this.ctx.currentTime+this.startTime+n[r]+0.6);a.connect(i);i.connect(this.masterGain);a.start(this.ctx.currentTime+this.startTime+n[r]);a.stop(this.ctx.currentTime+this.startTime+n[r]+0.7)}},MusicPlayer.prototype.playMelody=function(e){var t=[[523.25,659.25,783.99],[523.25,659.25,783.99],[523.25,587.33,698.46],[523.25,587.33,783.99],[659.25,783.99,987.77],[587.33,698.46,880.00],[523.25,659.25,783.99],[523.25,659.25,783.99],[523.25,493.88,587.33],[523.25,493.88,659.25],[440.00,554.37,659.25],[523.25,659.25,783.99]];var n=t[e%12];for(var r=0;r<3;r++){var a=this.ctx.createOscillator(),i=this.ctx.createGain();a.type='sine';a.frequency.value=n[r];i.gain.setValueAtTime(0,this.ctx.currentTime+this.startTime+r*0.08);i.gain.linearRampToValueAtTime(0.18,this.ctx.currentTime+this.startTime+r*0.08+0.02);i.gain.linearRampToValueAtTime(0.12,this.ctx.currentTime+this.startTime+r*0.08+0.15);i.gain.linearRampToValueAtTime(0,this.ctx.currentTime+this.startTime+r*0.08+0.35);a.connect(i);i.connect(this.masterGain);a.start(this.ctx.currentTime+this.startTime+r*0.08);a.stop(this.ctx.currentTime+this.startTime+r*0.08+0.4)}},MusicPlayer.prototype.playChord=function(e){var t=[[261.63,329.63,392.00,493.88],[293.66,369.99,440.00,523.25],[261.63,329.63,392.00,493.88],[220.00,277.18,329.63,440.00],[261.63,329.63,392.00,493.88],[196.00,246.94,293.66,392.00],[329.63,415.30,493.88,587.33],[261.63,329.63,392.00,523.25]];var n=t[e%8];for(var r=0;r<4;r++){var a=this.ctx.createOscillator(),i=this.ctx.createGain();a.type='triangle';a.frequency.value=n[r];i.gain.setValueAtTime(0,this.ctx.currentTime+this.startTime);i.gain.linearRampToValueAtTime(0.08,this.ctx.currentTime+this.startTime+0.05);i.gain.linearRampToValueAtTime(0.05,this.ctx.currentTime+this.startTime+0.3);i.gain.linearRampToValueAtTime(0,this.ctx.currentTime+this.startTime+0.9);a.connect(i);i.connect(this.masterGain);a.start(this.ctx.currentTime+this.startTime);a.stop(this.ctx.currentTime+this.startTime+1)}},MusicPlayer.prototype.playSparkle=function(){var e=[1046.50,1318.51,1567.98,2093.00,2349.23,2793.83];for(var t=0;t<8;t++){var n=this.ctx.currentTime+this.startTime+t*0.05+Math.random()*0.1;var r=e[Math.floor(Math.random()*6)];var a=this.ctx.createOscillator(),i=this.ctx.createGain();a.type='sine';a.frequency.value=r;i.gain.setValueAtTime(0,n);i.gain.linearRampToValueAtTime(0.12,n+0.01);i.gain.linearRampToValueAtTime(0,n+0.2);a.connect(i);i.connect(this.masterGain);a.start(n);a.stop(n+0.25)}},MusicPlayer.prototype.schedule=function(){var e=this;if(!this.isPlaying||this.isPaused)return;var t=0.1;var n=0.4;while(this.startTime<this.ctx.currentTime+t){ this.playArpeggio(this.arpIndex);this.playMelody(this.noteIndex);this.playChord(Math.floor(this.noteIndex/2));if(this.noteIndex%4===0){this.playBass(this.bassIndex);this.bassIndex++}if(this.noteIndex%3===0){this.playSparkle()}this.arpIndex++;this.noteIndex++;this.startTime+=n}this.timer=setTimeout(function(){e.schedule()},25)},MusicPlayer.prototype.start=function(){if(!this.ctx)return;if(this.ctx.state==='suspended')this.ctx.resume();if(this.isPlaying&&!this.isPaused)return;this.isPlaying=true;this.isPaused=false;if(this.pauseTime>0){this.startTime=this.ctx.currentTime-this.pauseTime+0.1}else{this.startTime=0.1}if(this.noteIndex===0){this.noteIndex=0;this.arpIndex=0;this.bassIndex=0}this.schedule()},MusicPlayer.prototype.pause=function(){if(!this.isPlaying)return;this.isPaused=true;this.pauseTime=this.ctx.currentTime-this.startTime;if(this.timer){clearTimeout(this.timer);this.timer=null}},MusicPlayer.prototype.resume=function(){if(!this.isPlaying)return;if(!this.isPaused)return;this.isPaused=false;this.startTime=this.ctx.currentTime-this.pauseTime+0.1;this.schedule()},MusicPlayer.prototype.stop=function(){if(!this.isPlaying)return;this.isPlaying=false;this.isPaused=false;this.pauseTime=0;this.startTime=0;this.noteIndex=0;this.arpIndex=0;this.bassIndex=0;if(this.timer){clearTimeout(this.timer);this.timer=null}},MusicPlayer.prototype.toggle=function(){if(this.isPlaying&&!this.isPaused){this.pause();return false}else if(this.isPaused){this.resume();return true}else{this.start();return true}};return MusicPlayer}();
+    
+    var mp=new JoyfulMusic();
+    var mt=document.getElementById('musicToggle');
+    var mi=document.getElementById('musicIcon');
+    var musicWasPlaying=false;
+    
+    if(sessionStorage.getItem('dnaMusicPlaying')==='true'){
+      mt.classList.add('playing');
+      mi.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+      musicWasPlaying=true;
+    }
+    
+    mt.addEventListener('click',function(){
+      mp.init();
+      var playing=mp.toggle();
+      sessionStorage.setItem('dnaMusicPlaying',playing);
+      if(playing){
+        mt.classList.add('playing');
+        mi.innerHTML='<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+      }else{
+        mt.classList.remove('playing');
+        mi.innerHTML='<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
+      }
+    });
+    
+    if(musicWasPlaying){
+      mp.init();
+      setTimeout(function(){mp.start();},100);
+    }
+  </script>
+</body>
+</html>
