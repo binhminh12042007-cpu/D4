@@ -1,20 +1,14 @@
-# TODO - Click Sound Effect Implementation
+# TODO - Update Back to Quiz Result links
 
-## Plan
-Add a mouse-click sound effect to quiz options using Web Audio API
+## Task
+Change "Back to Quiz Result" button on all DNA letter analysis pages to go to `/your-dna-types` instead of `quiz.html#resultCard`
 
-## Steps Completed
-- [x] Analyze quiz.html and quiz.js to understand the implementation
-- [x] Create implementation plan
-- [x] Get user approval for the plan
-- [x] Add `playClickSound()` function to quiz.js using Web Audio API
-- [x] Call `playClickSound()` in option button onclick handler
 
-## Implementation Summary
-- Added `playClickSound()` function that creates a pleasant "pop" sound using Web Audio API
-- The sound is generated programmatically using a sine wave oscillator
-- Frequency sweeps from 800Hz to 300Hz over 80ms for a satisfying click effect
-- The function is called immediately when a user clicks on any quiz option
-- No external sound files needed - works on all modern browsers
-- Does not affect scoring logic or question navigation
+- [ ] cortisol-S.html
+- [ ] learning-A.html
+- [ ] cortisol-R.html
+- [ ] dopamine-B.html
+
+## Change
+Reverted back to original version: `<a href="quiz.html#resultCard" class="back-link">← Back to Quiz Results</a>`
 

@@ -142,7 +142,7 @@ function showResult() {
         eating: createTypeLink(types.eating, 'eating')
     };
 
-    finalType.innerHTML = `Your DNA Type: 
+    finalType.innerHTML = `
         ${typeLinks.chronotype} 
         ${typeLinks.cortisol} 
         ${typeLinks.dopamine} 
@@ -595,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
             eating: createTypeLink(types.eating, 'eating')
         };
 
-        finalType.innerHTML = `Your DNA Type: 
+        finalType.innerHTML = `
             ${typeLinks.chronotype} 
             ${typeLinks.cortisol} 
             ${typeLinks.dopamine} 
