@@ -669,16 +669,7 @@ body {
   opacity: 1;
 }
 
-.option.selected::after {
-  content: '✓';
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--green-dark);
-  font-weight: 700;
-  font-size: 1.1rem;
-}
+
 
 /* ctrl */
 .controls {
