@@ -473,16 +473,28 @@ body {
     margin-top: 6px; 
 }
 
-.social-icons i {
-    font-size: 1.4rem;
+.social-icons a {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
     margin-right: 16px; 
     cursor: pointer;
     transition: 0.25s ease;
 }
 
-.social-icons i:hover {
+.social-icons a:hover {
     color: #C4B7D9;
     transform: scale(1.15);
+}
+
+.social-icons i {
+    font-size: 1.4rem;
+    display: block;
+}
+
+.social-icons i:hover {
+    color: inherit;
+    transform: none;
 }
 
 .copyright {
@@ -1066,4 +1078,5 @@ body {
   max-width: 100%;
   display: block;
   padding: 0;
+  padding-bottom: 120px; /* Space for fixed footer */
 }
