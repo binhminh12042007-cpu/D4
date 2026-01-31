@@ -41,7 +41,79 @@
 
     <!-- main content -->
     <main class="container">
+        <div class="dna-images-grid">
+            <img src="images/NRDIRcat.png" alt="NRDIR DNA Type">
+            <img src="images/MSDARcat.png" alt="MSDAR DNA Type">
+            <img src="images/MSDACcat.png" alt="MSDAC DNA Type">
+            <img src="images/MSDIRcat.png" alt="MSDIR DNA Type">
+            <img src="images/MSDICcat.png" alt="MSDIC DNA Type">
+            <img src="images/MSBARcat.png" alt="MSBAR DNA Type">
+            <img src="images/MSBACcat.png" alt="MSBAC DNA Type">
+            <img src="images/MSBIRcat.png" alt="MSBIR DNA Type">
+            <img src="images/MSBICcat.png" alt="MSBIC DNA Type">
+            <img src="images/MRDARcat.png" alt="MRDAR DNA Type">
+            <img src="images/MRDACcat.png" alt="MRDAC DNA Type">
+            <img src="images/MRDIRcat.png" alt="MRDIR DNA Type">
+            <img src="images/MRDICcat.png" alt="MRDIC DNA Type">
+            <img src="images/MRBARcat.png" alt="MRBAR DNA Type">
+            <img src="images/MRBACcat.png" alt="MRBAC DNA Type">
+            <img src="images/MRBIRcat.png" alt="MRBIR DNA Type">
+            <img src="images/MRBICcat.png" alt="MRBIC DNA Type">
+            <img src="images/NSDARcat.png" alt="NSDAR DNA Type">
+            <img src="images/NSDACcat.png" alt="NSDAC DNA Type">
+            <img src="images/NSDIRcat.png" alt="NSDIR DNA Type">
+            <img src="images/NSDICcat.png" alt="NSDIC DNA Type">
+            <img src="images/NSBARcat.png" alt="NSBAR DNA Type">
+            <img src="images/NSBACcat.png" alt="NSBAC DNA Type">
+            <img src="images/NSBIRcat.png" alt="NSBIR DNA Type">
+            <img src="images/NSBICcat.png" alt="NSBIC DNA Type">
+            <img src="images/NRDARcat.png" alt="NRDAR DNA Type">
+            <img src="images/NRDACcat.png" alt="NRDAC DNA Type">
+            <img src="images/NRDICcat.png" alt="NRDIC DNA Type">
+            <img src="images/NRBARcat.png" alt="NRBAR DNA Type">
+            <img src="images/NRBACcat.png" alt="NRBAC DNA Type">
+            <img src="images/NRBIRcat.png" alt="NRBIR DNA Type">
+            <img src="images/NRBICcat.png" alt="NRBIC DNA Type">
+        </div>
     </main>
+
+    <style>
+        .dna-images-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .dna-images-grid img {
+            max-width: calc(25% - 20px);
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .dna-images-grid img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 1200px) {
+            .dna-images-grid img {
+                max-width: calc(50% - 20px);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .dna-images-grid img {
+                max-width: 100%;
+            }
+            .dna-images-grid {
+                gap: 15px;
+            }
+        }
+    </style>
 
     <!-- footer -->
     <footer class="footer">
