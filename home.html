@@ -10,9 +10,60 @@
         body {
             background: linear-gradient(180deg, #87CEEB 0%, #A7C7E7 20%, #C4B7D9 35%, #D4B8D4 50%, #E4B9C9 65%, #F4BAC4 80%, #FFB6C1 100%);
         }
+        
+        /* Override container to not center content on this page */
+        .home-page .container {
+            justify-content: flex-start;
+            padding-top: 0;
+            min-height: auto;
+            align-items: flex-start;
+        }
+        
+        .home-page body {
+            padding-bottom: 500px;
+            padding-top: 20px;
+        }
+        
+        .dna-images-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            margin-top: 80px;
+            margin-bottom: 200px;
+        }
+        
+        .dna-images-grid img {
+            max-width: calc(25% - 20px);
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .dna-images-grid img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        @media (max-width: 1200px) {
+            .dna-images-grid img {
+                max-width: calc(50% - 20px);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .dna-images-grid img {
+                max-width: 100%;
+            }
+            .dna-images-grid {
+                gap: 15px;
+            }
+        }
     </style>
 </head>
-<body>
+<body class="home-page">
 
     <!-- Minecraft Clouds -->
     <div class="clouds-container">
@@ -76,46 +127,6 @@
             <img src="images/NRBICcat.png" alt="NRBIC DNA Type">
         </div>
     </main>
-
-    <style>
-        .dna-images-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            margin-top: 80px;
-            margin-bottom: 100px;
-        }
-        
-        .dna-images-grid img {
-            max-width: calc(25% - 20px);
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .dna-images-grid img:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        @media (max-width: 1200px) {
-            .dna-images-grid img {
-                max-width: calc(50% - 20px);
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .dna-images-grid img {
-                max-width: 100%;
-            }
-            .dna-images-grid {
-                gap: 15px;
-            }
-        }
-    </style>
 
     <!-- footer -->
     <footer class="footer">
