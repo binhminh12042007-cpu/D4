@@ -34,7 +34,41 @@
             margin-bottom: 200px;
         }
         
-        .dna-images-grid img {
+        .dna-cell {
+            width: calc(25% - 20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .dna-cell img {
+            max-width: 100%;
+        }
+        
+        .dna-button {
+            display: block;
+            text-decoration: none;
+        }
+        
+        .dna-button img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .dna-button:hover img {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dna-label {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        .dna-images-grid > img {
             max-width: calc(25% - 20px);
             height: auto;
             border-radius: 12px;
@@ -42,19 +76,25 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .dna-images-grid img:hover {
+        .dna-images-grid > img:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         
         @media (max-width: 1200px) {
-            .dna-images-grid img {
+            .dna-cell {
+                width: calc(50% - 20px);
+            }
+            .dna-images-grid > img {
                 max-width: calc(50% - 20px);
             }
         }
         
         @media (max-width: 600px) {
-            .dna-images-grid img {
+            .dna-cell {
+                width: 100%;
+            }
+            .dna-images-grid > img {
                 max-width: 100%;
             }
             .dna-images-grid {
@@ -93,38 +133,134 @@
     <!-- main content -->
     <main class="container">
         <div class="dna-images-grid">
-            <img src="images/NRDIRcat.png" alt="NRDIR DNA Type">
-            <img src="images/MSDARcat.png" alt="MSDAR DNA Type">
-            <img src="images/MSDACcat.png" alt="MSDAC DNA Type">
-            <img src="images/MSDIRcat.png" alt="MSDIR DNA Type">
-            <img src="images/MSDICcat.png" alt="MSDIC DNA Type">
-            <img src="images/MSBARcat.png" alt="MSBAR DNA Type">
-            <img src="images/MSBACcat.png" alt="MSBAC DNA Type">
-            <img src="images/MSBIRcat.png" alt="MSBIR DNA Type">
-            <img src="images/MSBICcat.png" alt="MSBIC DNA Type">
-            <img src="images/MRDARcat.png" alt="MRDAR DNA Type">
-            <img src="images/MRDACcat.png" alt="MRDAC DNA Type">
-            <img src="images/MRDIRcat.png" alt="MRDIR DNA Type">
-            <img src="images/MRDICcat.png" alt="MRDIC DNA Type">
-            <img src="images/MRBARcat.png" alt="MRBAR DNA Type">
-            <img src="images/MRBACcat.png" alt="MRBAC DNA Type">
-            <img src="images/MRBIRcat.png" alt="MRBIR DNA Type">
-            <img src="images/MRBICcat.png" alt="MRBIC DNA Type">
-            <img src="images/NSDARcat.png" alt="NSDAR DNA Type">
-            <img src="images/NSDACcat.png" alt="NSDAC DNA Type">
-            <img src="images/NSDIRcat.png" alt="NSDIR DNA Type">
-            <img src="images/NSDICcat.png" alt="NSDIC DNA Type">
-            <img src="images/NSBARcat.png" alt="NSBAR DNA Type">
-            <img src="images/NSBACcat.png" alt="NSBAC DNA Type">
-            <img src="images/NSBIRcat.png" alt="NSBIR DNA Type">
-            <img src="images/NSBICcat.png" alt="NSBIC DNA Type">
-            <img src="images/NRDARcat.png" alt="NRDAR DNA Type">
-            <img src="images/NRDACcat.png" alt="NRDAC DNA Type">
-            <img src="images/NRDICcat.png" alt="NRDIC DNA Type">
-            <img src="images/NRBARcat.png" alt="NRBAR DNA Type">
-            <img src="images/NRBACcat.png" alt="NRBAC DNA Type">
-            <img src="images/NRBIRcat.png" alt="NRBIR DNA Type">
-            <img src="images/NRBICcat.png" alt="NRBIC DNA Type">
+            <div class="dna-cell">
+                <div class="dna-label">NRDIR-Mind Wanderer</div>
+                <a href="#" class="dna-button"><img src="images/NRDIRcat.png" alt="NRDIR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MSDAR-Morning Powerhouse</div>
+                <a href="#" class="dna-button"><img src="images/MSDARcat.png" alt="MSDAR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MSDAC-Calm Strategist</div>
+                <a href="#" class="dna-button"><img src="images/MSDACcat.png" alt="MSDAC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MSDIR-Analytical Creator</div>
+                <a href="#" class="dna-button"><img src="images/MSDIRcat.png" alt="MSDIR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MSDIC-Creative Strategist</div>
+                <a href="#" class="dna-button"><img src="images/MSDICcat.png" alt="MSDIC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MSBAR-Early-Riser Adventurer</div>
+                <a href="#" class="dna-button"><img src="images/MSBARcat.png" alt="MSBAR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MSBAC-System Builder</div>
+                <a href="#" class="dna-button"><img src="images/MSBACcat.png" alt="MSBAC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MSBIR-Steady Emotionalist</div>
+                <a href="#" class="dna-button"><img src="images/MSBIRcat.png" alt="MSBIR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MSBIC-Rhythm Keeper</div>
+                <a href="#" class="dna-button"><img src="images/MSBICcat.png" alt="MSBIC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MRDAR-Morning Warriorr</div>
+                <a href="#" class="dna-button"><img src="images/MRDARcat.png" alt="MRDAR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MRDAC-High-Pressure Executor</div>
+                <a href="#" class="dna-button"><img src="images/MRDACcat.png" alt="MRDAC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MRDIR-High-Stress Creator</div>
+                <a href="#" class="dna-button"><img src="images/MRDIRcat.png" alt="MRDIR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MRDIC-Controlled Innovator</div>
+                <a href="#" class="dna-button"><img src="images/MRDICcat.png" alt="MRDIC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MRBAR-Endurer</div>
+                <a href="#" class="dna-button"><img src="images/MRBARcat.png" alt="MRBAR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MRBAC-The Iron-Disciplined</div>
+                <a href="#" class="dna-button"><img src="images/MRBACcat.png" alt="MRBAC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MRBIR-Pressured Empath</div>
+                <a href="#" class="dna-button"><img src="images/MRBIRcat.png" alt="MRBIR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">MRBIC-The Survivor</div>
+                <a href="#" class="dna-button"><img src="images/MRBICcat.png" alt="MRBIC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NSDAR-Nighttime Adventurer</div>
+                <a href="#" class="dna-button"><img src="images/NSDARcat.png" alt="NSDAR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NSDAC-Night Strategist</div>
+                <a href="#" class="dna-button"><img src="images/NSDACcat.png" alt="NSDAC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NSDIR-Night Artist</div>
+                <a href="#" class="dna-button"><img src="images/NSDIRcat.png" alt="NSDIR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NSDIC-Silent Observer</div>
+                <a href="#" class="dna-button"><img src="images/NSDICcat.png" alt="NSDIC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NSBAR-Midnight Anchor</div>
+                <a href="#" class="dna-button"><img src="images/NSBARcat.png" alt="NSBAR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NSBAC-Silent Keeper</div>
+                <a href="#" class="dna-button"><img src="images/NSBACcat.png" alt="NSBAC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NSBIR-Nostalgic One</div>
+                <a href="#" class="dna-button"><img src="images/NSBIRcat.png" alt="NSBIR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NSBIC-Inner Balancer</div>
+                <a href="#" class="dna-button"><img src="images/NSBICcat.png" alt="NSBIC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NRDAR-Night Exploder</div>
+                <a href="#" class="dna-button"><img src="images/NRDARcat.png" alt="NRDAR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NRDAC-Sleepless Strategist</div>
+                <a href="#" class="dna-button"><img src="images/NRDACcat.png" alt="NRDAC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NRDIC-Boundary Creator</div>
+                <a href="#" class="dna-button"><img src="images/NRDICcat.png" alt="NRDIC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NRBAR-Dark Endurer</div>
+                <a href="#" class="dna-button"><img src="images/NRBARcat.png" alt="NRBAR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NRBAC-Silent Steel</div>
+                <a href="#" class="dna-button"><img src="images/NRBACcat.png" alt="NRBAC DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NRBIR-Moonheart</div>
+                <a href="#" class="dna-button"><img src="images/NRBIRcat.png" alt="NRBIR DNA Type"></a>
+            </div>
+            <div class="dna-cell">
+                <div class="dna-label">NRBIC-Silent Survivor</div>
+                <a href="#" class="dna-button"><img src="images/NRBICcat.png" alt="NRBIC DNA Type"></a>
+            </div>
         </div>
     </main>
 
