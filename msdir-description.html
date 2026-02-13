@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSDIR - Analytical Creator | DNA.Me</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* MSDIR Page Specific Styles */
+        .msdir-page {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .msdir-page .container {
+            justify-content: center;
+            padding-top: 0;
+            min-height: auto;
+            align-items: center;
+        }
+
+        .msdir-content {
+            text-align: left;
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInUp 0.6s ease forwards;
+            margin-top: 100px;
+            margin-bottom: 120px;
+            scroll-margin-top: 100px;
+            padding-bottom: 20px;
+        }
+
+        .msdir-content:target {
+            scroll-margin-top: 100px;
+        }
+
+        /* Header Section */
+        .msdir-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(255, 64, 129, 0.15));
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .msdir-header .type-code {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 12px;
+            color: #9C27B0;
+            text-shadow: 0 2px 10px rgba(156, 39, 176, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .msdir-header .type-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2D3748;
+            margin-bottom: 16px;
+        }
+
+        .msdir-header .type-tagline {
+            font-size: 1.1rem;
+            color: #4A5568;
+            font-style: italic;
+        }
+
+        /* Symbol Breakdown Card */
+        .symbol-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 30px rgba(156, 39, 176, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symbol-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, #9C27B0, #E91E63, #FF4081);
+        }
+
+        .symbol-card h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #9C27B0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .symbol-card h2 i {
+            font-size: 1.2rem;
+        }
+
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .symbol-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(156, 39, 176, 0.06);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .symbol-item:hover {
+            background: rgba(156, 39, 176, 0.12);
+            transform: translateX(4px);
+        }
+
+        .symbol-letter {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+        }
+
+        .symbol-text {
+            flex: 1;
+        }
+
+        .symbol-text .trait {
+            font-weight: 700;
+            color: #2D3748;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .symbol-text .description {
+            font-size: 0.9rem;
+            color: #4A5568;
+            line-height: 1.5;
+        }
+
+        /* Section Cards */
+        .msdir-section {
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .msdir-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+
+        .msdir-section::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #9C27B0 0%, #E91E63 50%, #FF4081 100%);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .msdir-section h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2D3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .msdir-section h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(156, 39, 176, 0.3), transparent);
+            margin-left: 16px;
+            border-radius: 2px;
+        }
+
+        .msdir-section h2 .section-icon {
+            font-size: 1.2rem;
+            color: #9C27B0;
+            text-shadow: 0 2px 8px rgba(156, 39, 176, 0.3);
+        }
+
+        .msdir-section p {
+            margin-bottom: 16px;
+            line-height: 1.75;
+            color: #4A5568;
+            font-size: 0.98rem;
+        }
+
+        .msdir-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* List Styling */
+        .msdir-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .msdir-section ul li {
+            padding: 12px 0 12px 34px;
+            position: relative;
+            color: #4A5568;
+            font-size: 0.97rem;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .msdir-section ul li:last-child {
+            border-bottom: none;
+        }
+
+        .msdir-section ul li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            color: #9C27B0;
+            font-size: 0.85rem;
+        }
+
+        /* Strengths and Challenges */
+        .strengths-challenges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .strengths-box, .challenges-box {
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .strengths-box {
+            background: linear-gradient(135deg, rgba(152, 216, 170, 0.2), rgba(135, 206, 235, 0.2));
+            border: 1px solid rgba(46, 125, 50, 0.2);
+        }
+
+        .challenges-box {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 182, 193, 0.25));
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .strengths-box h3, .challenges-box h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strengths-box h3 {
+            color: #2E7D32;
+        }
+
+        .challenges-box h3 {
+            color: #C75B5B;
+        }
+
+        .strengths-box ul li::before {
+            content: '✓';
+            color: #2E7D32;
+        }
+
+        .challenges-box ul li::before {
+            content: '!';
+            color: #C75B5B;
+            font-weight: bold;
+        }
+
+        /* Back Button */
+        .back-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.35);
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(156, 39, 176, 0.45);
+            background: linear-gradient(135deg, #7B1FA2, #C2185B);
+        }
+
+        .back-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .msdir-header {
+                padding: 30px 20px;
+            }
+
+            .msdir-header .type-code {
+                font-size: 2.2rem;
+                letter-spacing: 8px;
+            }
+
+            .msdir-header .type-name {
+                font-size: 1.4rem;
+            }
+
+            .symbol-card, .msdir-section {
+                padding: 24px 20px;
+            }
+
+            .symbol-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .strengths-challenges {
+                grid-template-columns: 1fr;
+            }
+
+            .msdir-section h2 {
+                font-size: 1.2rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .msdir-section h2::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="msdir-page">
+
+    <!-- Minecraft Clouds -->
+    <div class="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
+        <div class="cloud cloud-6"></div>
+        <div class="cloud cloud-7"></div>
+        <div class="cloud cloud-8"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="DNA.Me logo.png" alt="logo" class="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html">DNA Types</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="msdir-content">
+            
+            <!-- Header -->
+            <div class="msdir-header">
+                <div class="type-code">MSDIR</div>
+                <div class="type-name">Analytical Creator</div>
+                <div class="type-tagline">Wired for calm yet high-stimulation exploration</div>
+            </div>
+
+            <!-- Symbol Breakdown -->
+            <div class="symbol-card">
+                <h2><i class="fas fa-dna"></i> Symbol Breakdown</h2>
+                <div class="symbol-grid">
+                    <div class="symbol-item">
+                        <div class="symbol-letter">M</div>
+                        <div class="symbol-text">
+                            <div class="trait">Morning-aligned Chronotype</div>
+                            <div class="description">PER2/PER3 early activity; peak alertness in early hours</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">S</div>
+                        <div class="symbol-text">
+                            <div class="trait">Serene Cortisol Profile</div>
+                            <div class="description">Moderate HPA-axis activity; calm under stress</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">D</div>
+                        <div class="symbol-text">
+                            <div class="trait">Driven Dopamine System</div>
+                            <div class="description">High novelty-seeking; DRD4 7R allele traits</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">I</div>
+                        <div class="symbol-text">
+                            <div class="trait">Integrative Learning</div>
+                            <div class="description">Multi-sensory, conceptual, experiential</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">R</div>
+                        <div class="symbol-text">
+                            <div class="trait">Reward-oriented Stress Eating</div>
+                            <div class="description">May seek pleasurable foods under stress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biological & Neurophysiological Profile -->
+            <div class="msdir-section">
+                <h2><i class="fas fa-heartbeat section-icon"></i> Biological & Neurophysiological Profile</h2>
+                <p>The Analytical Creator is wired for calm yet high-stimulation exploration:</p>
+                <ul>
+                    <li><strong>Circadian Rhythm:</strong> Early riser; peak cognitive performance and creativity occur in morning hours. Prefers structured routines and high-focus tasks early.</li>
+                    <li><strong>Stress Reactivity:</strong> Serene cortisol allows stable emotional regulation; can engage in demanding tasks without stress-induced burnout.</li>
+                    <li><strong>Dopamine Drive:</strong> High novelty-seeking promotes curiosity, risk-taking in problem-solving, and enthusiasm for exploration.</li>
+                    <li><strong>Learning Modality:</strong> Integrative brain style favors multi-modal learning; thrives when combining visual, auditory, and hands-on methods.</li>
+                    <li><strong>Stress-Eating Response:</strong> Reward-driven; may indulge in comfort foods under stress, reflecting dopamine-mediated reinforcement.</li>
+                </ul>
+            </div>
+
+            <!-- Behavioral & Cognitive Patterns -->
+            <div class="msdir-section">
+                <h2><i class="fas fa-brain section-icon"></i> Behavioral & Cognitive Patterns</h2>
+                <ul>
+                    <li><strong>Creativity & Problem-Solving:</strong> Strong analytical skills paired with innovative thinking. Able to deconstruct problems logically and recombine solutions creatively.</li>
+                    <li><strong>Focus & Engagement:</strong> Sustained attention on stimulating tasks; seeks complexity and intellectual challenge.</li>
+                    <li><strong>Emotional Stability:</strong> Calm, deliberate, low emotional volatility; excels in high-pressure scenarios.</li>
+                    <li><strong>Learning Style:</strong> Integrative; connects abstract concepts, uses multi-sensory inputs, and applies knowledge in real-world contexts.</li>
+                    <li><strong>Daily Productivity:</strong> Optimal performance in early morning; afternoon for reflective analysis and ideation.</li>
+                </ul>
+            </div>
+
+            <!-- Psychological & Social Tendencies -->
+            <div class="msdir-section">
+                <h2><i class="fas fa-users section-icon"></i> Psychological & Social Tendencies</h2>
+                <div class="strengths-challenges">
+                    <div class="strengths-box">
+                        <h3><i class="fas fa-star"></i> Strengths</h3>
+                        <ul>
+                            <li>Combines precision and creativity effectively</li>
+                            <li>Calm under pressure, enhancing decision-making</li>
+                            <li>Naturally curious and explorative</li>
+                            <li>Skilled at connecting ideas and generating innovative solutions</li>
+                        </ul>
+                    </div>
+                    <div class="challenges-box">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Challenges</h3>
+                        <ul>
+                            <li>May overindulge in reward-driven behaviors under stress</li>
+                            <li>Integrative style may overcomplicate simple tasks</li>
+                            <li>Needs structure to channel creative energy efficiently</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 24px;"><strong>Interpersonal Style:</strong> Reflective and inspiring in collaboration. Effective in brainstorming and strategic planning sessions. Mentors others by blending analytical rigor with creativity.</p>
+            </div>
+
+            <!-- Developmental Guidance -->
+            <div class="msdir-section">
+                <h2><i class="fas fa-compass section-icon"></i> Developmental Guidance & Growth Pathways</h2>
+                
+                <p><strong>Time & Productivity:</strong></p>
+                <ul>
+                    <li>Morning focus for analytical and creative work</li>
+                    <li>Use late-day for integrating insights and experimentation</li>
+                </ul>
+
+                <p><strong>Stress & Emotional Regulation:</strong></p>
+                <ul>
+                    <li>Leverage calm profile to handle complex or team-based tasks</li>
+                    <li>Mindful of reward-seeking habits to avoid distraction</li>
+                </ul>
+
+                <p><strong>Learning & Skill Development:</strong></p>
+                <ul>
+                    <li>Engage in multi-modal, project-based learning</li>
+                    <li>Apply abstract thinking to real-world challenges</li>
+                    <li>Balance creative exploration with structured execution</li>
+                </ul>
+
+                <p><strong>Social & Emotional Growth:</strong></p>
+                <ul>
+                    <li>Collaborate in interdisciplinary teams to apply creativity analytically</li>
+                    <li>Practice clear communication of complex ideas</li>
+                </ul>
+
+                <p><strong>Long-Term Potential:</strong> Excels in innovation-driven fields: R&D, design thinking, engineering, data visualization, product strategy, or scientific research. Unique combination of morning energy + calm stress response + dopamine-driven curiosity + integrative cognition supports consistent innovation with precision.</p>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-section">
+                <a href="home.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to DNA Types
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <h3>Contact Info</h3>
+            <p>Email: dnameteam@gmail.com</p>
+        </div>
+        <div class="footer-right">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/_bookdeuniverse?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 DNA.Me Project
+        </div>
+    </footer>
+
+</body>
+</html>
+

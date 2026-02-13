@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSBIC - Rhythm Keeper | DNA.Me</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* MSBIC Page Specific Styles */
+        .msbic-page {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .msbic-page .container {
+            justify-content: center;
+            padding-top: 0;
+            min-height: auto;
+            align-items: center;
+        }
+
+        .msbic-content {
+            text-align: left;
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInUp 0.6s ease forwards;
+            margin-top: 100px;
+            margin-bottom: 120px;
+            scroll-margin-top: 100px;
+            padding-bottom: 20px;
+        }
+
+        .msbic-content:target {
+            scroll-margin-top: 100px;
+        }
+
+        /* Header Section */
+        .msbic-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(0, 188, 212, 0.15), rgba(0, 188, 212, 0.25));
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .msbic-header .type-code {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 12px;
+            color: #00BCD4;
+            text-shadow: 0 2px 10px rgba(0, 188, 212, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .msbic-header .type-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2D3748;
+            margin-bottom: 16px;
+        }
+
+        .msbic-header .type-tagline {
+            font-size: 1.1rem;
+            color: #4A5568;
+            font-style: italic;
+        }
+
+        /* Symbol Breakdown Card */
+        .symbol-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 30px rgba(0, 188, 212, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symbol-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, #00BCD4, #26C6DA, #4DD0E1);
+        }
+
+        .symbol-card h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #00BCD4;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .symbol-card h2 i {
+            font-size: 1.2rem;
+        }
+
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .symbol-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(0, 188, 212, 0.06);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .symbol-item:hover {
+            background: rgba(0, 188, 212, 0.12);
+            transform: translateX(4px);
+        }
+
+        .symbol-letter {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #00BCD4, #26C6DA);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
+        }
+
+        .symbol-text {
+            flex: 1;
+        }
+
+        .symbol-text .trait {
+            font-weight: 700;
+            color: #2D3748;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .symbol-text .description {
+            font-size: 0.9rem;
+            color: #4A5568;
+            line-height: 1.5;
+        }
+
+        /* Section Cards */
+        .msbic-section {
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .msbic-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+
+        .msbic-section::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #00BCD4 0%, #26C6DA 50%, #4DD0E1 100%);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .msbic-section h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2D3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .msbic-section h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 188, 212, 0.3), transparent);
+            margin-left: 16px;
+            border-radius: 2px;
+        }
+
+        .msbic-section h2 .section-icon {
+            font-size: 1.2rem;
+            color: #00BCD4;
+            text-shadow: 0 2px 8px rgba(0, 188, 212, 0.3);
+        }
+
+        .msbic-section p {
+            margin-bottom: 16px;
+            line-height: 1.75;
+            color: #4A5568;
+            font-size: 0.98rem;
+        }
+
+        .msbic-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* List Styling */
+        .msbic-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .msbic-section ul li {
+            padding: 12px 0 12px 34px;
+            position: relative;
+            color: #4A5568;
+            font-size: 0.97rem;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .msbic-section ul li:last-child {
+            border-bottom: none;
+        }
+
+        .msbic-section ul li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            color: #00BCD4;
+            font-size: 0.85rem;
+        }
+
+        /* Strengths and Challenges */
+        .strengths-challenges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .strengths-box, .challenges-box {
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .strengths-box {
+            background: linear-gradient(135deg, rgba(152, 216, 170, 0.2), rgba(135, 206, 235, 0.2));
+            border: 1px solid rgba(46, 125, 50, 0.2);
+        }
+
+        .challenges-box {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 182, 193, 0.25));
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .strengths-box h3, .challenges-box h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strengths-box h3 {
+            color: #2E7D32;
+        }
+
+        .challenges-box h3 {
+            color: #C75B5B;
+        }
+
+        .strengths-box ul li::before {
+            content: '✓';
+            color: #2E7D32;
+        }
+
+        .challenges-box ul li::before {
+            content: '!';
+            color: #C75B5B;
+            font-weight: bold;
+        }
+
+        /* Back Button */
+        .back-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #00BCD4, #26C6DA);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.35);
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.45);
+            background: linear-gradient(135deg, #00ACC1, #00BCD4);
+        }
+
+        .back-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .msbic-header {
+                padding: 30px 20px;
+            }
+
+            .msbic-header .type-code {
+                font-size: 2.2rem;
+                letter-spacing: 8px;
+            }
+
+            .msbic-header .type-name {
+                font-size: 1.4rem;
+            }
+
+            .symbol-card, .msbic-section {
+                padding: 24px 20px;
+            }
+
+            .symbol-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .strengths-challenges {
+                grid-template-columns: 1fr;
+            }
+
+            .msbic-section h2 {
+                font-size: 1.2rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .msbic-section h2::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="msbic-page">
+
+    <!-- Minecraft Clouds -->
+    <div class="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
+        <div class="cloud cloud-6"></div>
+        <div class="cloud cloud-7"></div>
+        <div class="cloud cloud-8"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="DNA.Me logo.png" alt="logo" class="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html">DNA Types</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="msbic-content">
+            
+            <!-- Header -->
+            <div class="msbic-header">
+                <div class="type-code">MSBIC</div>
+                <div class="type-name">Rhythm Keeper</div>
+                <div class="type-tagline">Naturally tuned for stability, consistency, and harmonious routines</div>
+            </div>
+
+            <!-- Symbol Breakdown -->
+            <div class="symbol-card">
+                <h2><i class="fas fa-dna"></i> Symbol Breakdown</h2>
+                <div class="symbol-grid">
+                    <div class="symbol-item">
+                        <div class="symbol-letter">M</div>
+                        <div class="symbol-text">
+                            <div class="trait">Morning-aligned Chronotype</div>
+                            <div class="description">PER2/PER3 early peak; naturally energized in the morning</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">S</div>
+                        <div class="symbol-text">
+                            <div class="trait">Serene Cortisol Profile</div>
+                            <div class="description">Stable stress response; calm under pressure</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">B</div>
+                        <div class="symbol-text">
+                            <div class="trait">Balanced Dopamine Drive</div>
+                            <div class="description">Moderate novelty-seeking; steady motivation without impulsivity</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">I</div>
+                        <div class="symbol-text">
+                            <div class="trait">Integrative Learning</div>
+                            <div class="description">Multimodal, experiential, and creative processing</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">C</div>
+                        <div class="symbol-text">
+                            <div class="trait">Control Stress-Eating</div>
+                            <div class="description">Maintains appetite balance; self-regulated under stress</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biological & Neurophysiological Profile -->
+            <div class="msbic-section">
+                <h2><i class="fas fa-heartbeat section-icon"></i> Biological & Neurophysiological Profile</h2>
+                <p>The Rhythm Keeper is naturally tuned for stability, consistency, and harmonious routines:</p>
+                <ul>
+                    <li><strong>Circadian Rhythm:</strong> Morning energy peaks allow early focus and structured productivity, aligning naturally with daylight cycles.</li>
+                    <li><strong>Stress Reactivity:</strong> Serene cortisol ensures emotional resilience, enabling calm responses in demanding situations.</li>
+                    <li><strong>Dopamine Drive:</strong> Balanced novelty-seeking encourages curiosity and engagement without impulsive risk-taking.</li>
+                    <li><strong>Learning Modality:</strong> Integrative brain networks allow multimodal learning—combining visual, auditory, and kinesthetic inputs for holistic understanding.</li>
+                    <li><strong>Stress-Eating Response:</strong> Control-oriented pattern prevents stress from disrupting nutrition, helping maintain energy and focus.</li>
+                </ul>
+            </div>
+
+            <!-- Behavioral & Cognitive Patterns -->
+            <div class="msbic-section">
+                <h2><i class="fas fa-brain section-icon"></i> Behavioral & Cognitive Patterns</h2>
+                <ul>
+                    <li><strong>Routine & Consistency:</strong> Thrives on structured schedules and predictable workflows.</li>
+                    <li><strong>Focus & Productivity:</strong> Steady attention and deliberate pacing make this type highly reliable for goal completion.</li>
+                    <li><strong>Curiosity & Exploration:</strong> Engages with new experiences thoughtfully, balancing openness with caution.</li>
+                    <li><strong>Learning Style:</strong> Integrative—absorbs information from multiple sources and applies it creatively and practically.</li>
+                    <li><strong>Daily Rhythm:</strong> Morning hours best for concentrated work and planning; afternoons for reflection, collaboration, or creative tasks.</li>
+                </ul>
+            </div>
+
+            <!-- Psychological & Social Tendencies -->
+            <div class="msbic-section">
+                <h2><i class="fas fa-users section-icon"></i> Psychological & Social Tendencies</h2>
+                <div class="strengths-challenges">
+                    <div class="strengths-box">
+                        <h3><i class="fas fa-star"></i> Strengths</h3>
+                        <ul>
+                            <li>Calm, emotionally balanced, and resilient under pressure</li>
+                            <li>Highly dependable and methodical</li>
+                            <li>Integrates multiple perspectives in problem-solving</li>
+                            <li>Maintains rhythm in work, life, and relationships</li>
+                        </ul>
+                    </div>
+                    <div class="challenges-box">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Challenges</h3>
+                        <ul>
+                            <li>May resist sudden changes or unplanned opportunities</li>
+                            <li>Could over-prioritize routine at the expense of flexibility</li>
+                            <li>Needs encouragement to embrace risk or experimentation</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 24px;"><strong>Interpersonal Style:</strong> Stabilizing presence in teams, providing guidance and structure. Listens attentively and fosters trust. Encourages consistent and deliberate progress in group tasks.</p>
+            </div>
+
+            <!-- Developmental Guidance -->
+            <div class="msbic-section">
+                <h2><i class="fas fa-compass section-icon"></i> Developmental Guidance & Growth Pathways</h2>
+                
+                <p><strong>Time & Productivity Management:</strong></p>
+                <ul>
+                    <li>Use morning energy for priority tasks and planning</li>
+                    <li>Allocate afternoons for reflective practice, collaborative problem-solving, or creative exploration</li>
+                </ul>
+
+                <p><strong>Stress & Emotional Regulation:</strong></p>
+                <ul>
+                    <li>Leverage calm cortisol profile to navigate challenges without overreaction</li>
+                    <li>Practice adaptive flexibility to complement the natural preference for routine</li>
+                </ul>
+
+                <p><strong>Learning & Skill Development:</strong></p>
+                <ul>
+                    <li>Engage in integrative, multimodal learning experiences</li>
+                    <li>Develop systems for time management, project tracking, and process improvement</li>
+                </ul>
+
+                <p><strong>Social & Emotional Growth:</strong></p>
+                <ul>
+                    <li>Serve as a stabilizer or mentor in group settings</li>
+                    <li>Balance structured approaches with opportunities for creativity and innovation</li>
+                </ul>
+
+                <p><strong>Long-Term Potential:</strong> Excels in roles requiring organization, planning, and holistic problem-solving, such as project management, operations, education, research, or wellness coordination. The combination of morning productivity + emotional steadiness + balanced curiosity + integrative learning + controlled reward response ensures consistent achievement and reliable leadership.</p>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-section">
+                <a href="home.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to DNA Types
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <h3>Contact Info</h3>
+            <p>Email: dnameteam@gmail.com</p>
+        </div>
+        <div class="footer-right">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/_bookdeuniverse?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 DNA.Me Project
+        </div>
+    </footer>
+
+</body>
+</html>
+

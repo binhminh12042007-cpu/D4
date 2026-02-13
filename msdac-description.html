@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSDAC - Calm Strategist | DNA.Me</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* MSDAC Page Specific Styles */
+        .msdac-page {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .msdac-page .container {
+            justify-content: center;
+            padding-top: 0;
+            min-height: auto;
+            align-items: center;
+        }
+
+        .msdac-content {
+            text-align: left;
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInUp 0.6s ease forwards;
+            /* Ensure content starts below navbar and ends above footer */
+            margin-top: 100px;
+            margin-bottom: 120px;
+            scroll-margin-top: 100px;
+            padding-bottom: 20px;
+        }
+
+        /* Ensure anchor links scroll properly */
+        .msdac-content:target {
+            scroll-margin-top: 100px;
+        }
+
+        /* Header Section */
+        .msdac-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(152, 216, 170, 0.2), rgba(135, 206, 235, 0.2));
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .msdac-header .type-code {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 12px;
+            color: #2E7D32;
+            text-shadow: 0 2px 10px rgba(46, 125, 50, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .msdac-header .type-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2D3748;
+            margin-bottom: 16px;
+        }
+
+        .msdac-header .type-tagline {
+            font-size: 1.1rem;
+            color: #4A5568;
+            font-style: italic;
+        }
+
+        /* Symbol Breakdown Card */
+        .symbol-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 30px rgba(46, 125, 50, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symbol-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, #2E7D32, #87CEEB, #98D8AA);
+        }
+
+        .symbol-card h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2E7D32;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .symbol-card h2 i {
+            font-size: 1.2rem;
+        }
+
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .symbol-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(46, 125, 50, 0.06);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .symbol-item:hover {
+            background: rgba(46, 125, 50, 0.12);
+            transform: translateX(4px);
+        }
+
+        .symbol-letter {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2E7D32, #4CAF50);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+
+        .symbol-text {
+            flex: 1;
+        }
+
+        .symbol-text .trait {
+            font-weight: 700;
+            color: #2D3748;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .symbol-text .description {
+            font-size: 0.9rem;
+            color: #4A5568;
+            line-height: 1.5;
+        }
+
+        /* Section Cards */
+        .msdac-section {
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .msdac-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+
+        .msdac-section::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #2E7D32 0%, #87CEEB 50%, #98D8AA 100%);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .msdac-section h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2D3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .msdac-section h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(46, 125, 50, 0.3), transparent);
+            margin-left: 16px;
+            border-radius: 2px;
+        }
+
+        .msdac-section h2 .section-icon {
+            font-size: 1.2rem;
+            color: #2E7D32;
+            text-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+        }
+
+        .msdac-section p {
+            margin-bottom: 16px;
+            line-height: 1.75;
+            color: #4A5568;
+            font-size: 0.98rem;
+        }
+
+        .msdac-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* List Styling */
+        .msdac-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .msdac-section ul li {
+            padding: 12px 0 12px 34px;
+            position: relative;
+            color: #4A5568;
+            font-size: 0.97rem;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .msdac-section ul li:last-child {
+            border-bottom: none;
+        }
+
+        .msdac-section ul li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            color: #2E7D32;
+            font-size: 0.85rem;
+        }
+
+        /* Strengths and Challenges */
+        .strengths-challenges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .strengths-box, .challenges-box {
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .strengths-box {
+            background: linear-gradient(135deg, rgba(152, 216, 170, 0.2), rgba(135, 206, 235, 0.2));
+            border: 1px solid rgba(46, 125, 50, 0.2);
+        }
+
+        .challenges-box {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 182, 193, 0.25));
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .strengths-box h3, .challenges-box h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strengths-box h3 {
+            color: #2E7D32;
+        }
+
+        .challenges-box h3 {
+            color: #C75B5B;
+        }
+
+        .strengths-box ul li::before {
+            content: '✓';
+            color: #2E7D32;
+        }
+
+        .challenges-box ul li::before {
+            content: '!';
+            color: #C75B5B;
+            font-weight: bold;
+        }
+
+        /* Back Button */
+        .back-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #2E7D32, #4CAF50);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.35);
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.45);
+            background: linear-gradient(135deg, #1B5E20, #388E3C);
+        }
+
+        .back-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .msdac-header {
+                padding: 30px 20px;
+            }
+
+            .msdac-header .type-code {
+                font-size: 2.2rem;
+                letter-spacing: 8px;
+            }
+
+            .msdac-header .type-name {
+                font-size: 1.4rem;
+            }
+
+            .symbol-card, .msdac-section {
+                padding: 24px 20px;
+            }
+
+            .symbol-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .strengths-challenges {
+                grid-template-columns: 1fr;
+            }
+
+            .msdac-section h2 {
+                font-size: 1.2rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .msdac-section h2::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="msdac-page">
+
+    <!-- Minecraft Clouds -->
+    <div class="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
+        <div class="cloud cloud-6"></div>
+        <div class="cloud cloud-7"></div>
+        <div class="cloud cloud-8"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="DNA.Me logo.png" alt="logo" class="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html">DNA Types</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="msdac-content">
+            
+            <!-- Header -->
+            <div class="msdac-header">
+                <div class="type-code">MSDAC</div>
+                <div class="type-name">Calm Strategist</div>
+                <div class="type-tagline">Combining biological stability with high curiosity and analytical precision</div>
+            </div>
+
+            <!-- Symbol Breakdown -->
+            <div class="symbol-card">
+                <h2><i class="fas fa-dna"></i> Symbol Breakdown</h2>
+                <div class="symbol-grid">
+                    <div class="symbol-item">
+                        <div class="symbol-letter">M</div>
+                        <div class="symbol-text">
+                            <div class="trait">Morning-aligned Chronotype</div>
+                            <div class="description">PER2/PER3 early activity peak; early melatonin offset</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">S</div>
+                        <div class="symbol-text">
+                            <div class="trait">Serene Cortisol Profile</div>
+                            <div class="description">Moderate HPA-axis reactivity; low stress sensitivity</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">D</div>
+                        <div class="symbol-text">
+                            <div class="trait">Driven Dopamine System</div>
+                            <div class="description">High novelty-seeking; DRD4 7R-linked traits</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">A</div>
+                        <div class="symbol-text">
+                            <div class="trait">Analytical Learning</div>
+                            <div class="description">Structured, logical, sequential thinker</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">C</div>
+                        <div class="symbol-text">
+                            <div class="trait">Control Stress-Eating</div>
+                            <div class="description">Low tendency to overeat under stress; maintains regulated appetite</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biological & Neurophysiological Profile -->
+            <div class="msdac-section">
+                <h2><i class="fas fa-heartbeat section-icon"></i> Biological & Neurophysiological Profile</h2>
+                <p>The Calm Strategist combines biological stability with high curiosity and analytical precision:</p>
+                <ul>
+                    <li><strong>Circadian Rhythm:</strong> Early riser with strong morning alertness. Energy naturally peaks during daylight hours, making structured routines highly effective. Morning productivity and focus are optimal.</li>
+                    <li><strong>Stress Reactivity:</strong> Serene cortisol patterns allow for stable emotional and physiological responses under pressure. The HPA-axis responds adaptively, avoiding overreaction and burnout.</li>
+                    <li><strong>Dopamine Drive:</strong> High novelty-seeking promotes exploration of ideas and innovation. The dopamine system fuels motivation to tackle complex problems while sustaining interest in challenging or intellectually stimulating tasks.</li>
+                    <li><strong>Learning Modality:</strong> Analytical preference supports logical, stepwise, and sequential learning. Excels in planning, strategy, and systematic problem-solving.</li>
+                    <li><strong>Stress-Eating Response:</strong> Maintains regulated appetite even under pressure. This control reflects a strong bio-behavioral balance between stress response and reward-driven behaviors.</li>
+                </ul>
+            </div>
+
+            <!-- Behavioral & Cognitive Patterns -->
+            <div class="msdac-section">
+                <h2><i class="fas fa-brain section-icon"></i> Behavioral & Cognitive Patterns</h2>
+                <ul>
+                    <li><strong>Curiosity & Exploration:</strong> Actively seeks new approaches and innovative strategies, but within structured, predictable frameworks.</li>
+                    <li><strong>Focus Dynamics:</strong> Can sustain long periods of attention on complex tasks. Analytical reasoning and strategic planning are natural strengths.</li>
+                    <li><strong>Emotional Reactivity:</strong> Calm, measured, and composed. Reacts to stress with problem-solving rather than impulsivity.</li>
+                    <li><strong>Learning Style:</strong> Prefers clear instructions, structured workflows, and logical progression. Combines analysis with occasional creative insights when novelty is introduced.</li>
+                    <li><strong>Daily Rhythm:</strong> Early mornings are prime for tackling difficult cognitive tasks. Later periods may be used for reflection, brainstorming, or incremental progress.</li>
+                </ul>
+            </div>
+
+            <!-- Psychological & Social Tendencies -->
+            <div class="msdac-section">
+                <h2><i class="fas fa-users section-icon"></i> Psychological & Social Tendencies</h2>
+                <div class="strengths-challenges">
+                    <div class="strengths-box">
+                        <h3><i class="fas fa-star"></i> Strengths</h3>
+                        <ul>
+                            <li>Excellent problem-solving and strategic planning</li>
+                            <li>High cognitive endurance and sustained attention</li>
+                            <li>Low emotional volatility; maintains composure under stress</li>
+                            <li>Capable of integrating novelty-driven exploration with logical frameworks</li>
+                        </ul>
+                    </div>
+                    <div class="challenges-box">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Challenges</h3>
+                        <ul>
+                            <li>May resist rapid or chaotic changes due to preference for structure</li>
+                            <li>Occasionally over-analytical; can delay decisions in pursuit of perfection</li>
+                            <li>Needs to consciously incorporate creative or lateral thinking to balance analytical rigidity</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 24px;"><strong>Interpersonal Style:</strong> Calm, reliable, and thoughtful in group settings. Inspires trust through measured decisions and foresight. Excels in leadership roles requiring strategic planning, mentoring, or systems thinking.</p>
+            </div>
+
+            <!-- Developmental Guidance -->
+            <div class="msdac-section">
+                <h2><i class="fas fa-compass section-icon"></i> Developmental Guidance & Growth Pathways</h2>
+                
+                <p><strong>Time & Productivity Management:</strong></p>
+                <ul>
+                    <li>Optimize critical or complex work for morning peak hours</li>
+                    <li>Schedule strategic planning and reflective tasks in early to mid-day</li>
+                </ul>
+
+                <p><strong>Stress & Emotional Regulation:</strong></p>
+                <ul>
+                    <li>Leverage natural calmness to mentor peers or mediate conflicts</li>
+                    <li>Include creative exercises to prevent over-reliance on structured thinking</li>
+                </ul>
+
+                <p><strong>Learning & Skill Development:</strong></p>
+                <ul>
+                    <li>Use stepwise, analytical methods for mastering challenging concepts</li>
+                    <li>Integrate novelty-driven projects to stimulate dopamine reward pathways without overwhelming structure</li>
+                </ul>
+
+                <p><strong>Social & Emotional Growth:</strong></p>
+                <ul>
+                    <li>Participate in group projects or strategy sessions where calm, analytical insight is valued</li>
+                    <li>Balance logic-driven approaches with empathy and flexibility to maximize collaboration</li>
+                </ul>
+
+                <p><strong>Long-term Potential:</strong> Calm Strategists excel in strategic, analytical, and leadership roles: operations, project management, research strategy, finance, engineering, or policy planning. The combination of morning energy + low stress reactivity + analytical precision + novelty-driven curiosity creates a profile capable of high-efficiency problem-solving and measured innovation.</p>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-section">
+                <a href="home.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to DNA Types
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <h3>Contact Info</h3>
+            <p>Email: dnameteam@gmail.com</p>
+        </div>
+        <div class="footer-right">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/_bookdeuniverse?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 DNA.Me Project
+        </div>
+    </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRBAR - Endurer | DNA.Me</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* MRBAR Page Specific Styles */
+        .mrbar-page {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .mrbar-page .container {
+            justify-content: center;
+            padding-top: 0;
+            min-height: auto;
+            align-items: center;
+        }
+
+        .mrbar-content {
+            text-align: left;
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInUp 0.6s ease forwards;
+            margin-top: 100px;
+            margin-bottom: 120px;
+            scroll-margin-top: 100px;
+            padding-bottom: 20px;
+        }
+
+        .mrbar-content:target {
+            scroll-margin-top: 100px;
+        }
+
+        /* Header Section */
+        .mrbar-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(139, 195, 74, 0.15));
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .mrbar-header .type-code {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 12px;
+            color: #4CAF50;
+            text-shadow: 0 2px 10px rgba(76, 175, 80, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .mrbar-header .type-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2D3748;
+            margin-bottom: 16px;
+        }
+
+        .mrbar-header .type-tagline {
+            font-size: 1.1rem;
+            color: #4A5568;
+            font-style: italic;
+        }
+
+        /* Symbol Breakdown Card */
+        .symbol-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 30px rgba(76, 175, 80, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symbol-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, #4CAF50, #8BC34A, #CDDC39);
+        }
+
+        .symbol-card h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #4CAF50;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .symbol-card h2 i {
+            font-size: 1.2rem;
+        }
+
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .symbol-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(76, 175, 80, 0.06);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .symbol-item:hover {
+            background: rgba(76, 175, 80, 0.12);
+            transform: translateX(4px);
+        }
+
+        .symbol-letter {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .symbol-text {
+            flex: 1;
+        }
+
+        .symbol-text .trait {
+            font-weight: 700;
+            color: #2D3748;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .symbol-text .description {
+            font-size: 0.9rem;
+            color: #4A5568;
+            line-height: 1.5;
+        }
+
+        /* Section Cards */
+        .mrbar-section {
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mrbar-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+
+        .mrbar-section::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #4CAF50 0%, #8BC34A 50%, #CDDC39 100%);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .mrbar-section h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2D3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .mrbar-section h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(76, 175, 80, 0.3), transparent);
+            margin-left: 16px;
+            border-radius: 2px;
+        }
+
+        .mrbar-section h2 .section-icon {
+            font-size: 1.2rem;
+            color: #4CAF50;
+            text-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        .mrbar-section p {
+            margin-bottom: 16px;
+            line-height: 1.75;
+            color: #4A5568;
+            font-size: 0.98rem;
+        }
+
+        .mrbar-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* List Styling */
+        .mrbar-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .mrbar-section ul li {
+            padding: 12px 0 12px 34px;
+            position: relative;
+            color: #4A5568;
+            font-size: 0.97rem;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .mrbar-section ul li:last-child {
+            border-bottom: none;
+        }
+
+        .mrbar-section ul li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            color: #4CAF50;
+            font-size: 0.85rem;
+        }
+
+        /* Strengths and Challenges */
+        .strengths-challenges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .strengths-box, .challenges-box {
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .strengths-box {
+            background: linear-gradient(135deg, rgba(152, 216, 170, 0.2), rgba(135, 206, 235, 0.2));
+            border: 1px solid rgba(46, 125, 50, 0.2);
+        }
+
+        .challenges-box {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 182, 193, 0.25));
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .strengths-box h3, .challenges-box h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strengths-box h3 {
+            color: #2E7D32;
+        }
+
+        .challenges-box h3 {
+            color: #C75B5B;
+        }
+
+        .strengths-box ul li::before {
+            content: '✓';
+            color: #2E7D32;
+        }
+
+        .challenges-box ul li::before {
+            content: '!';
+            color: #C75B5B;
+            font-weight: bold;
+        }
+
+        /* Back Button */
+        .back-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.35);
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.45);
+            background: linear-gradient(135deg, #388E3C, #7CB342);
+        }
+
+        .back-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mrbar-header {
+                padding: 30px 20px;
+            }
+
+            .mrbar-header .type-code {
+                font-size: 2.2rem;
+                letter-spacing: 8px;
+            }
+
+            .mrbar-header .type-name {
+                font-size: 1.4rem;
+            }
+
+            .symbol-card, .mrbar-section {
+                padding: 24px 20px;
+            }
+
+            .symbol-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .strengths-challenges {
+                grid-template-columns: 1fr;
+            }
+
+            .mrbar-section h2 {
+                font-size: 1.2rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .mrbar-section h2::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="mrbar-page">
+
+    <!-- Minecraft Clouds -->
+    <div class="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
+        <div class="cloud cloud-6"></div>
+        <div class="cloud cloud-7"></div>
+        <div class="cloud cloud-8"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="DNA.Me logo.png" alt="logo" class="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html">DNA Types</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="mrbar-content">
+            
+            <!-- Header -->
+            <div class="mrbar-header">
+                <div class="type-code">MRBAR</div>
+                <div class="type-name">Endurer</div>
+                <div class="type-tagline">Biologically built for sustained effort under pressure</div>
+            </div>
+
+            <!-- Symbol Breakdown -->
+            <div class="symbol-card">
+                <h2><i class="fas fa-dna"></i> Symbol Breakdown</h2>
+                <div class="symbol-grid">
+                    <div class="symbol-item">
+                        <div class="symbol-letter">M</div>
+                        <div class="symbol-text">
+                            <div class="trait">Morning-aligned Chronotype</div>
+                            <div class="description">PER2/PER3 early phase; early-day alertness and discipline</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">R</div>
+                        <div class="symbol-text">
+                            <div class="trait">Reactive Cortisol Profile</div>
+                            <div class="description">High stress reactivity; strong physiological response to pressure</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">B</div>
+                        <div class="symbol-text">
+                            <div class="trait">Balanced Dopamine System</div>
+                            <div class="description">Moderate novelty-seeking; persistence over impulsivity</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">A</div>
+                        <div class="symbol-text">
+                            <div class="trait">Analytical Learning</div>
+                            <div class="description">Structured, logical, sequential thinking</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">R</div>
+                        <div class="symbol-text">
+                            <div class="trait">Reward-oriented Stress Eating</div>
+                            <div class="description">Stress may trigger cravings as a coping mechanism</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biological & Neurophysiological Profile -->
+            <div class="mrbar-section">
+                <h2><i class="fas fa-heartbeat section-icon"></i> Biological & Neurophysiological Profile</h2>
+                <p>The Endurer is biologically built for sustained effort under pressure, rather than rapid bursts of creativity or novelty:</p>
+                <ul>
+                    <li><strong>Circadian Rhythm:</strong> Morning alignment provides early-day structure, discipline, and task initiation. The Endurer functions best with routine and predictable schedules, especially early in the day.</li>
+                    <li><strong>Stress Reactivity:</strong> A reactive cortisol profile means stress is felt deeply, but unlike impulsive types, this stress is internalized and converted into persistence rather than emotional volatility.</li>
+                    <li><strong>Dopamine Drive:</strong> Balanced dopamine signaling favors consistency, patience, and long-term goal pursuit over thrill-seeking. Motivation grows from progress and completion, not novelty.</li>
+                    <li><strong>Learning Modality:</strong> Analytical neural pathways support structured reasoning, rule-based learning, and systematic mastery.</li>
+                    <li><strong>Stress-Eating Response:</strong> Reward-oriented eating may emerge during prolonged stress, reflecting a biological attempt to restore emotional or energetic balance.</li>
+                </ul>
+            </div>
+
+            <!-- Behavioral & Cognitive Patterns -->
+            <div class="mrbar-section">
+                <h2><i class="fas fa-brain section-icon"></i> Behavioral & Cognitive Patterns</h2>
+                <ul>
+                    <li><strong>Work Style:</strong> Relentless, steady, and disciplined. The Endurer does not quit easily and often outlasts others in long or difficult projects.</li>
+                    <li><strong>Stress Response:</strong> Stress increases seriousness, focus, and determination rather than creativity or exploration.</li>
+                    <li><strong>Problem-Solving Style:</strong> Logical, step-by-step, methodical. Prefers proven methods over experimental approaches.</li>
+                    <li><strong>Adaptation:</strong> Slower to pivot, but once adapted, highly resilient.</li>
+                    <li><strong>Daily Rhythm:</strong> Most productive in the morning and early afternoon; prolonged stress without recovery can lead to fatigue accumulation.</li>
+                </ul>
+            </div>
+
+            <!-- Psychological & Social Tendencies -->
+            <div class="mrbar-section">
+                <h2><i class="fas fa-users section-icon"></i> Psychological & Social Tendencies</h2>
+                <div class="strengths-challenges">
+                    <div class="strengths-box">
+                        <h3><i class="fas fa-star"></i> Strengths</h3>
+                        <ul>
+                            <li>Exceptional perseverance and mental toughness</li>
+                            <li>Reliable under pressure; does not collapse in adversity</li>
+                            <li>Strong sense of duty, responsibility, and follow-through</li>
+                            <li>Excellent at maintaining systems, routines, and long-term commitments</li>
+                        </ul>
+                    </div>
+                    <div class="challenges-box">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Challenges</h3>
+                        <ul>
+                            <li>Internalizes stress → risk of silent burnout</li>
+                            <li>May neglect emotional needs while "pushing through"</li>
+                            <li>Reward-based stress eating may become habitual if unmanaged</li>
+                            <li>Can undervalue rest, creativity, or flexibility</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 24px;"><strong>Interpersonal Style:</strong> Quietly dependable rather than expressive. Earns trust through consistency, not charisma. Often becomes the "backbone" of teams during crises. May struggle to ask for help, even when overwhelmed.</p>
+            </div>
+
+            <!-- Developmental Guidance -->
+            <div class="mrbar-section">
+                <h2><i class="fas fa-compass section-icon"></i> Developmental Guidance & Growth Pathways</h2>
+                
+                <p><strong>Time & Productivity</strong></p>
+                <ul>
+                    <li>Use morning hours for demanding, structured tasks</li>
+                    <li>Break long projects into milestones to reduce chronic stress load</li>
+                    <li>Schedule deliberate recovery time (not optional for this type)</li>
+                </ul>
+
+                <p><strong>Stress Regulation</strong></p>
+                <ul>
+                    <li>Learn to recognize internalized stress before burnout</li>
+                    <li>Incorporate low-intensity recovery: walking, stretching, journaling</li>
+                    <li>Replace stress-eating with structured reward systems (planned meals, progress-based rewards)</li>
+                </ul>
+
+                <p><strong>Learning & Skill Development</strong></p>
+                <ul>
+                    <li>Analytical learning supports mastery in technical, rule-based fields</li>
+                    <li>Introduce small novelty challenges to prevent rigidity</li>
+                    <li>Use tracking systems to visualize progress (appeals strongly to this type)</li>
+                </ul>
+
+                <p><strong>Emotional Growth</strong></p>
+                <ul>
+                    <li>Practice expressing needs and limits early</li>
+                    <li>Reframe rest as performance maintenance, not weakness</li>
+                    <li>Develop emotional literacy alongside discipline</li>
+                </ul>
+
+                <p><strong>Long-Term Potential:</strong> The Endurer thrives in roles requiring resilience, reliability, and sustained execution, such as: Operations, logistics, engineering, healthcare, research support. Law, compliance, auditing, quality control. Long-term project management or mission-driven organizations.</p>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-section">
+                <a href="home.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to DNA Types
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <h3>Contact Info</h3>
+            <p>Email: dnameteam@gmail.com</p>
+        </div>
+        <div class="footer-right">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/_bookdeuniverse?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 DNA.Me Project
+        </div>
+    </footer>
+
+</body>
+</html>
+
