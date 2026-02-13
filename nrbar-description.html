@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRBAR - Dark Endurer | DNA.Me</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .nrbar-page { width: 100%; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .nrbar-page .container { justify-content: center; padding-top: 0; min-height: auto; align-items: center; }
+        .nrbar-content { text-align: left; width: 100%; max-width: 800px; animation: fadeInUp 0.6s ease forwards; margin-top: 100px; margin-bottom: 120px; }
+        .nrbar-header { text-align: center; margin-bottom: 40px; padding: 40px 30px; background: linear-gradient(135deg, rgba(121, 85, 72, 0.2), rgba(93, 64, 55, 0.2)); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); }
+        .nrbar-header .type-code { display: inline-block; font-size: 3rem; font-weight: 900; letter-spacing: 12px; color: #5D4037; margin-bottom: 12px; }
+        .nrbar-header .type-name { font-size: 1.8rem; font-weight: 700; color: #2D3748; margin-bottom: 16px; }
+        .nrbar-header .type-tagline { font-size: 1.1rem; color: #4A5568; font-style: italic; }
+        .symbol-card { background: rgba(255, 255, 255, 0.9); border-radius: 20px; padding: 32px; margin-bottom: 28px; box-shadow: 0 8px 30px rgba(93, 64, 55, 0.12); border: 1px solid rgba(255, 255, 255, 0.6); position: relative; }
+        .symbol-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, #5D4037, #795548); border-radius: 20px 0 0 20px; }
+        .symbol-card h2 { margin-top: 0; margin-bottom: 24px; font-size: 1.4rem; font-weight: 700; color: #5D4037; }
+        .symbol-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+        .symbol-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px; background: rgba(93, 64, 55, 0.06); border-radius: 14px; }
+        .symbol-letter { flex-shrink: 0; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #5D4037, #795548); color: white; font-size: 1.3rem; font-weight: 800; border-radius: 10px; }
+        .symbol-text { flex: 1; }
+        .symbol-text .trait { font-weight: 700; color: #2D3748; font-size: 1rem; margin-bottom: 4px; }
+        .symbol-text .description { font-size: 0.9rem; color: #4A5568; line-height: 1.5; }
+        .nrbar-section { background: rgba(255, 255, 255, 0.88); border-radius: 20px; padding: 32px; margin-bottom: 28px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06); border: 1px solid rgba(255, 255, 255, 0.6); position: relative; }
+        .nrbar-section::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #5D4037, #795548); border-radius: 20px 0 0 20px; }
+        .nrbar-section h2 { margin-top: 0; margin-bottom: 22px; font-size: 1.35rem; font-weight: 700; color: #2D3748; }
+        .nrbar-section p { margin-bottom: 16px; line-height: 1.75; color: #4A5568; font-size: 0.98rem; }
+        .nrbar-section ul { list-style: none; padding: 0; margin: 16px 0; }
+        .nrbar-section ul li { padding: 12px 0 12px 34px; position: relative; color: #4A5568; }
+        .nrbar-section ul li::before { content: '✦'; position: absolute; left: 0; top: 12px; color: #5D4037; }
+        .strengths-challenges { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px; }
+        .strengths-box, .challenges-box { padding: 20px; border-radius: 16px; }
+        .strengths-box { background: rgba(141, 110, 99, 0.2); border: 1px solid rgba(93, 64, 55, 0.2); }
+        .challenges-box { background: rgba(255, 182, 193, 0.15); border: 1px solid rgba(255, 182, 193, 0.3); }
+        .back-section { text-align: center; margin-top: 40px; }
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; background: linear-gradient(135deg, #5D4037, #795548); color: white; text-decoration: none; border: none; border-radius: 14px; font-weight: 600; }
+    </style>
+</head>
+<body class="nrbar-page">
+    <div class="clouds-container"><div class="cloud cloud-1"></div><div class="cloud cloud-2"></div><div class="cloud cloud-3"></div><div class="cloud cloud-4"></div><div class="cloud cloud-5"></div><div class="cloud cloud-6"></div><div class="cloud cloud-7"></div><div class="cloud cloud-8"></div></div>
+    <nav class="navbar"><div class="nav-left"><img src="DNA.Me logo.png" alt="logo" class="nav-logo"></div><ul class="nav-links"><li><a href="home.html">DNA Types</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+    <main class="container">
+        <div class="nrbar-content">
+            <div class="nrbar-header"><div class="type-code">NRBAR</div><div class="type-name">Dark Endurer</div><div class="type-tagline">Nighttime resilience combined with balanced motivation</div></div>
+            <div class="symbol-card"><h2><i class="fas fa-dna"></i> Symbol Breakdown</h2><div class="symbol-grid">
+                <div class="symbol-item"><div class="symbol-letter">N</div><div class="symbol-text"><div class="trait">Night-aligned</div><div class="description">Peak alertness in evening/night hours</div></div></div>
+                <div class="symbol-item"><div class="symbol-letter">R</div><div class="symbol-text"><div class="trait">Reactive Cortisol</div><div class="description">High stress reactivity</div></div></div>
+                <div class="symbol-item"><div class="symbol-letter">B</div><div class="symbol-text"><div class="trait">Balanced Dopamine</div><div class="description">Moderate novelty-seeking</div></div></div>
+                <div class="symbol-item"><div class="symbol-letter">A/I</div><div class="symbol-text"><div class="trait">Integrative Learning</div><div class="description">Holistic approaches</div></div></div>
+                <div class="symbol-item"><div class="symbol-letter">R</div><div class="symbol-text"><div class="trait">Reward Stress-Eating</div><div class="description">Craves comfort food under stress</div></div></div>
+            </div></div>
+            <div class="nrbar-section"><h2><i class="fas fa-heartbeat"></i> Biological Profile</h2><p>Nighttime resilience combined with balanced motivation.</p><ul>
+                <li><strong>Circadian:</strong> Night-active with peak creativity after sunset.</li>
+                <li><strong>Stress:</strong> High cortisol provides bursts of alertness.</li>
+                <li><strong>Dopamine:</strong> Balanced novelty allows controlled exploration.</li>
+            </ul></div>
+            <div class="nrbar-section"><h2><i class="fas fa-brain"></i> Behavioral Patterns</h2><ul>
+                <li><strong>Work:</strong> Persistent, methodical, and adaptable.</li>
+                <li><strong>Decision:</strong> Weighs options carefully.</li>
+                <li><strong>Problem-Solving:</strong> Integrates multiple perspectives.</li>
+            </ul></div>
+            <div class="nrbar-section"><h2><i class="fas fa-users"></i> Tendencies</h2><div class="strengths-challenges"><div class="strengths-box"><h3>Strengths</h3><ul><li>Exceptional endurance under stress</li><li>Creative integrative thinker</li><li>Maintains focus during long tasks</li></ul></div><div class="challenges-box"><h3>Challenges</h3><ul><li>Fatigue from high stress reactivity</li><li>May internalize stress</li></ul></div></div></div>
+            <div class="back-section"><a href="home.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to DNA Types</a></div>
+        </div>
+    </main>
+    <footer class="footer"><div class="footer-left"><h3>Contact Info</h3><p>Email: dnameteam@gmail.com</p></div><div class="footer-right"><h3>Follow Us</h3><div class="social-icons"><a href="https://www.instagram.com/_bookdeuniverse" target="_blank"><i class="fab fa-instagram"></i></a></div></div><div class="copyright">© 2025 DNA.Me Project</div></footer>
+</body>
+</html>

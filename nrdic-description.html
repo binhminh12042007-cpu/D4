@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRDIC - Boundary Creator | DNA.Me</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .nrdic-page { width: 100%; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .nrdic-page .container { justify-content: center; padding-top: 0; min-height: auto; align-items: center; }
+        .nrdic-content { text-align: left; width: 100%; max-width: 800px; animation: fadeInUp 0.6s ease forwards; margin-top: 100px; margin-bottom: 120px; }
+        .nrdic-header { text-align: center; margin-bottom: 40px; padding: 40px 30px; background: linear-gradient(135deg, rgba(156, 39, 176, 0.2), rgba(103, 58, 183, 0.2)); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); }
+        .nrdic-header .type-code { display: inline-block; font-size: 3rem; font-weight: 900; letter-spacing: 12px; color: #7B1FA2; margin-bottom: 12px; }
+        .nrdic-header .type-name { font-size: 1.8rem; font-weight: 700; color: #2D3748; margin-bottom: 16px; }
+        .nrdic-header .type-tagline { font-size: 1.1rem; color: #4A5568; font-style: italic; }
+        .symbol-card { background: rgba(255, 255, 255, 0.9); border-radius: 20px; padding: 32px; margin-bottom: 28px; box-shadow: 0 8px 30px rgba(156, 39, 176, 0.12); border: 1px solid rgba(255, 255, 255, 0.6); position: relative; }
+        .symbol-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(180deg, #7B1FA2, #9C27B0); border-radius: 20px 0 0 20px; }
+        .symbol-card h2 { margin-top: 0; margin-bottom: 24px; font-size: 1.4rem; font-weight: 700; color: #7B1FA2; }
+        .symbol-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+        .symbol-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px; background: rgba(156, 39, 176, 0.06); border-radius: 14px; }
+        .symbol-letter { flex-shrink: 0; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #7B1FA2, #9C27B0); color: white; font-size: 1.3rem; font-weight: 800; border-radius: 10px; }
+        .symbol-text { flex: 1; }
+        .symbol-text .trait { font-weight: 700; color: #2D3748; font-size: 1rem; margin-bottom: 4px; }
+        .symbol-text .description { font-size: 0.9rem; color: #4A5568; line-height: 1.5; }
+        .nrdic-section { background: rgba(255, 255, 255, 0.88); border-radius: 20px; padding: 32px; margin-bottom: 28px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06); border: 1px solid rgba(255, 255, 255, 0.6); position: relative; }
+        .nrdic-section::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #7B1FA2, #9C27B0); border-radius: 20px 0 0 20px; }
+        .nrdic-section h2 { margin-top: 0; margin-bottom: 22px; font-size: 1.35rem; font-weight: 700; color: #2D3748; display: flex; align-items: center; gap: 12px; }
+        .nrdic-section h2::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, rgba(156, 39, 176, 0.3), transparent); margin-left: 16px; }
+        .nrdic-section h2 .section-icon { font-size: 1.2rem; color: #7B1FA2; }
+        .nrdic-section p { margin-bottom: 16px; line-height: 1.75; color: #4A5568; font-size: 0.98rem; }
+        .nrdic-section ul { list-style: none; padding: 0; margin: 16px 0; }
+        .nrdic-section ul li { padding: 12px 0 12px 34px; position: relative; color: #4A5568; font-size: 0.97rem; line-height: 1.6; }
+        .nrdic-section ul li::before { content: '✦'; position: absolute; left: 0; top: 12px; color: #7B1FA2; }
+        .strengths-challenges { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px; }
+        .strengths-box, .challenges-box { padding: 20px; border-radius: 16px; }
+        .strengths-box { background: linear-gradient(135deg, rgba(186, 104, 200, 0.2), rgba(171, 71, 188, 0.2)); border: 1px solid rgba(156, 39, 176, 0.2); }
+        .challenges-box { background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 182, 193, 0.25)); border: 1px solid rgba(255, 182, 193, 0.3); }
+        .strengths-box h3, .challenges-box h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .strengths-box h3 { color: #7B1FA2; }
+        .challenges-box h3 { color: #C75B5B; }
+        .strengths-box ul li::before { content: '✓'; color: #7B1FA2; }
+        .challenges-box ul li::before { content: '!'; color: #C75B5B; font-weight: bold; }
+        .back-section { text-align: center; margin-top: 40px; margin-bottom: 20px; }
+        .back-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; background: linear-gradient(135deg, #7B1FA2, #9C27B0); color: white; text-decoration: none; border: none; border-radius: 14px; font-weight: 600; font-size: 1rem; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="nrdic-page">
+    <div class="clouds-container"><div class="cloud cloud-1"></div><div class="cloud cloud-2"></div><div class="cloud cloud-3"></div><div class="cloud cloud-4"></div><div class="cloud cloud-5"></div><div class="cloud cloud-6"></div><div class="cloud cloud-7"></div><div class="cloud cloud-8"></div></div>
+    <nav class="navbar"><div class="nav-left"><img src="DNA.Me logo.png" alt="logo" class="nav-logo"></div><ul class="nav-links"><li><a href="home.html">DNA Types</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+    <main class="container">
+        <div class="nrdic-content">
+            <div class="nrdic-header"><div class="type-code">NRDIC</div><div class="type-name">Boundary Creator</div><div class="type-tagline">Nighttime innovator with high sensitivity and integrative creativity</div></div>
+            <div class="symbol-card"><h2><i class="fas fa-dna"></i> Symbol Breakdown</h2><div class="symbol-grid">
+                <div class="symbol-item"><div class="symbol-letter">N</div><div class="symbol-text"><div class="trait">Night-aligned Chronotype</div><div class="description">Peak creativity and problem-solving occur in late-night hours</div></div></div>
+                <div class="symbol-item"><div class="symbol-letter">R</div><div class="symbol-text"><div class="trait">Reactive Cortisol Profile</div><div class="description">High stress reactivity; strong responses under pressure</div></div></div>
+                <div class="symbol-item"><div class="symbol-letter">D</div><div class="symbol-text"><div class="trait">Driven Dopamine System</div><div class="description">High novelty-seeking; motivated by challenges</div></div></div>
+                <div class="symbol-item"><div class="symbol-letter">I</div><div class="symbol-text"><div class="trait">Integrative Learning</div><div class="description">Holistic, multi-sensory approaches</div></div></div>
+                <div class="symbol-item"><div class="symbol-letter">C</div><div class="symbol-text"><div class="trait">Control Stress-Eating</div><div class="description">Regulates appetite under stress</div></div></div>
+            </div></div>
+            <div class="nrdic-section"><h2><i class="fas fa-heartbeat section-icon"></i> Biological Profile</h2><p>Nighttime innovator with high sensitivity and integrative creativity.</p><ul>
+                <li><strong>Circadian Rhythm:</strong> Night-active with peak creativity after sunset.</li>
+                <li><strong>Stress Regulation:</strong> High cortisol provides bursts of alertness.</li>
+                <li><strong>Dopamine Drive:</strong> High novelty-seeking fuels exploration.</li>
+                <li><strong>Learning:</strong> Integrative approach engages multiple senses.</li>
+            </ul></div>
+            <div class="nrdic-section"><h2><i class="fas fa-brain section-icon"></i> Behavioral Patterns</h2><ul>
+                <li><strong>Work Style:</strong> Creative, flexible, and exploratory with strong boundaries.</li>
+                <li><strong>Decision-Making:</strong> Evaluates holistically before acting.</li>
+                <li><strong>Problem-Solving:</strong> Integrates creativity with structured planning.</li>
+            </ul></div>
+            <div class="nrdic-section"><h2><i class="fas fa-users section-icon"></i> Tendencies</h2><div class="strengths-challenges"><div class="strengths-box"><h3><i class="fas fa-star"></i> Strengths</h3><ul><li>Highly creative integrator</li><li>Strong intuition</li><li>Maintains focus under stress</li></ul></div><div class="challenges-box"><h3><i class="fas fa-exclamation-triangle"></i> Challenges</h3><ul><li>Emotional intensity under stress</li><li>May internalize pressure</li></ul></div></div></div>
+            <div class="back-section"><a href="home.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to DNA Types</a></div>
+        </div>
+    </main>
+    <footer class="footer"><div class="footer-left"><h3>Contact Info</h3><p>Email: dnameteam@gmail.com</p></div><div class="footer-right"><h3>Follow Us</h3><div class="social-icons"><a href="https://www.instagram.com/_bookdeuniverse" target="_blank"><i class="fab fa-instagram"></i></a></div></div><div class="copyright">© 2025 DNA.Me Project</div></footer>
+</body>
+</html>
