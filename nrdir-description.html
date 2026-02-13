@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRDIR - Mind Wanderer | DNA.Me</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* NRDIR Page Specific Styles */
+        .nrdir-page {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .nrdir-page .container {
+            justify-content: center;
+            padding-top: 0;
+            min-height: auto;
+            align-items: center;
+        }
+
+        .nrdir-content {
+            text-align: left;
+            width: 100%;
+            max-width: 800px;
+            animation: fadeInUp 0.6s ease forwards;
+            /* Ensure content starts below navbar and ends above footer */
+            margin-top: 100px;
+            margin-bottom: 120px;
+            scroll-margin-top: 100px;
+            padding-bottom: 20px;
+        }
+
+        /* Ensure anchor links scroll properly */
+        .nrdir-content:target {
+            scroll-margin-top: 100px;
+        }
+
+        /* Header Section */
+        .nrdir-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(107, 91, 149, 0.15), rgba(167, 123, 194, 0.15));
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .nrdir-header .type-code {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 12px;
+            color: #6B5B95;
+            text-shadow: 0 2px 10px rgba(107, 91, 149, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .nrdir-header .type-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2D3748;
+            margin-bottom: 16px;
+        }
+
+        .nrdir-header .type-tagline {
+            font-size: 1.1rem;
+            color: #4A5568;
+            font-style: italic;
+        }
+
+        /* Symbol Breakdown Card */
+        .symbol-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 30px rgba(107, 91, 149, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symbol-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, #6B5B95, #A77BC2, #FFB6C1);
+        }
+
+        .symbol-card h2 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #6B5B95;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .symbol-card h2 i {
+            font-size: 1.2rem;
+        }
+
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .symbol-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(107, 91, 149, 0.05);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .symbol-item:hover {
+            background: rgba(107, 91, 149, 0.1);
+            transform: translateX(4px);
+        }
+
+        .symbol-letter {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6B5B95, #A77BC2);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(107, 91, 149, 0.3);
+        }
+
+        .symbol-text {
+            flex: 1;
+        }
+
+        .symbol-text .trait {
+            font-weight: 700;
+            color: #2D3748;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .symbol-text .description {
+            font-size: 0.9rem;
+            color: #4A5568;
+            line-height: 1.5;
+        }
+
+        /* Section Cards */
+        .nrdir-section {
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nrdir-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        }
+
+        .nrdir-section::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #87CEEB 0%, #FFB6C1 50%, #C4B7D9 100%);
+            border-radius: 20px 0 0 20px;
+        }
+
+        .nrdir-section h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #2D3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .nrdir-section h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(135, 206, 235, 0.4), transparent);
+            margin-left: 16px;
+            border-radius: 2px;
+        }
+
+        .nrdir-section h2 .section-icon {
+            font-size: 1.2rem;
+            color: #87CEEB;
+            text-shadow: 0 2px 8px rgba(135, 206, 235, 0.3);
+        }
+
+        .nrdir-section p {
+            margin-bottom: 16px;
+            line-height: 1.75;
+            color: #4A5568;
+            font-size: 0.98rem;
+        }
+
+        .nrdir-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* List Styling */
+        .nrdir-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .nrdir-section ul li {
+            padding: 12px 0 12px 34px;
+            position: relative;
+            color: #4A5568;
+            font-size: 0.97rem;
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .nrdir-section ul li:last-child {
+            border-bottom: none;
+        }
+
+        .nrdir-section ul li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            color: #87CEEB;
+            font-size: 0.85rem;
+        }
+
+        /* Strengths and Challenges */
+        .strengths-challenges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 16px;
+        }
+
+        .strengths-box, .challenges-box {
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        .strengths-box {
+            background: linear-gradient(135deg, rgba(152, 216, 170, 0.15), rgba(152, 216, 170, 0.25));
+            border: 1px solid rgba(152, 216, 170, 0.3);
+        }
+
+        .challenges-box {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 182, 193, 0.25));
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .strengths-box h3, .challenges-box h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strengths-box h3 {
+            color: #2E7D32;
+        }
+
+        .challenges-box h3 {
+            color: #C75B5B;
+        }
+
+        .strengths-box ul li::before {
+            content: '✓';
+            color: #2E7D32;
+        }
+
+        .challenges-box ul li::before {
+            content: '!';
+            color: #C75B5B;
+            font-weight: bold;
+        }
+
+        /* Back Button */
+        .back-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #6B5B95, #A77BC2);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(107, 91, 149, 0.35);
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(107, 91, 149, 0.45);
+            background: linear-gradient(135deg, #5a4a7f, #9566b0);
+        }
+
+        .back-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nrdir-header {
+                padding: 30px 20px;
+            }
+
+            .nrdir-header .type-code {
+                font-size: 2.2rem;
+                letter-spacing: 8px;
+            }
+
+            .nrdir-header .type-name {
+                font-size: 1.4rem;
+            }
+
+            .symbol-card, .nrdir-section {
+                padding: 24px 20px;
+            }
+
+            .symbol-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .strengths-challenges {
+                grid-template-columns: 1fr;
+            }
+
+            .nrdir-section h2 {
+                font-size: 1.2rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .nrdir-section h2::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="nrdir-page">
+
+    <!-- Minecraft Clouds -->
+    <div class="clouds-container">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
+        <div class="cloud cloud-6"></div>
+        <div class="cloud cloud-7"></div>
+        <div class="cloud cloud-8"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="DNA.Me logo.png" alt="logo" class="nav-logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="home.html">DNA Types</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="nrdir-content">
+            
+            <!-- Header -->
+            <div class="nrdir-header">
+                <div class="type-code">NRDIR</div>
+                <div class="type-name">Mind Wanderer</div>
+                <div class="type-tagline">A creative soul driven by curiosity and nocturnal energy</div>
+            </div>
+
+            <!-- Symbol Breakdown -->
+            <div class="symbol-card">
+                <h2><i class="fas fa-dna"></i> Symbol Breakdown</h2>
+                <div class="symbol-grid">
+                    <div class="symbol-item">
+                        <div class="symbol-letter">N</div>
+                        <div class="symbol-text">
+                            <div class="trait">Nocturnal Chronotype</div>
+                            <div class="description">Active at night; CRY1-related delayed melatonin suppression</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">R</div>
+                        <div class="symbol-text">
+                            <div class="trait">Reactive Cortisol Profile</div>
+                            <div class="description">High stress reactivity; NR3C1/HPA-axis sensitivity</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">D</div>
+                        <div class="symbol-text">
+                            <div class="trait">Driven Dopamine System</div>
+                            <div class="description">High novelty-seeking; DRD4 7R-linked tendencies</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">I</div>
+                        <div class="symbol-text">
+                            <div class="trait">Integrative Learning</div>
+                            <div class="description">Multimodal, creative, conceptual thinking preference</div>
+                        </div>
+                    </div>
+                    <div class="symbol-item">
+                        <div class="symbol-letter">R</div>
+                        <div class="symbol-text">
+                            <div class="trait">Reward-Oriented Stress Eating</div>
+                            <div class="description">Stress triggers cravings for high-calorie/sweet foods</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biological & Neurophysiological Profile -->
+            <div class="nrdir-section">
+                <h2><i class="fas fa-heartbeat section-icon"></i> Biological & Neurophysiological Profile</h2>
+                <p>The Mind Wanderer's profile suggests a highly responsive yet oscillating neurobiological system:</p>
+                <ul>
+                    <li><strong>Circadian Rhythm:</strong> Predominantly nocturnal due to CRY1-driven melatonin phase delay. Energy peaks occur late at night, aligning with quiet, undisturbed periods. Morning productivity is lower, making early routines challenging.</li>
+                    <li><strong>Stress Reactivity:</strong> HPA-axis hyper-responsiveness means sudden stressors trigger rapid cortisol surges. This can heighten emotional awareness, increase vigilance, and sometimes accelerate fatigue if unmanaged.</li>
+                    <li><strong>Dopamine Drive:</strong> High DRD4-driven novelty-seeking encourages exploration, risk-taking, and engagement with stimulating tasks. The system craves challenge and diverse experiences, leading to bursts of creativity and innovation, but can also increase distractibility.</li>
+                    <li><strong>Learning Integration:</strong> Brain networks favor multimodal information processing. The Mind Wanderer thrives on combining visual, auditory, and kinesthetic inputs, conceptual mapping, and real-world simulation rather than linear instruction.</li>
+                    <li><strong>Stress-Eating Response:</strong> Cortisol–ghrelin interactions lead to increased appetite under stress, often for palatable, high-reward foods, reflecting a bio-behavioral drive to self-soothe and restore homeostasis.</li>
+                </ul>
+            </div>
+
+            <!-- Behavioral & Cognitive Patterns -->
+            <div class="nrdir-section">
+                <h2><i class="fas fa-brain section-icon"></i> Behavioral & Cognitive Patterns</h2>
+                <ul>
+                    <li><strong>Curiosity & Exploration:</strong> Constantly seeks new ideas, challenges, and sensory stimulation. Often "mind wandering" leads to creative leaps, intuitive problem-solving, and innovative perspectives.</li>
+                    <li><strong>Focus Dynamics:</strong> Exhibits periodic hyper-focus, especially on tasks aligned with personal interest or novelty. Non-stimulating tasks may trigger procrastination or mental drift.</li>
+                    <li><strong>Emotional Reactivity:</strong> Quick to experience strong emotional responses, both positive and negative. High empathy and sensitivity can enhance social insight but may also increase stress perception.</li>
+                    <li><strong>Learning Style:</strong> Prefers experiential, integrative approaches. Learns best when connecting abstract concepts to real-world practice, using multisensory methods. Enjoys discussion, visualization, and simulation over rote memorization.</li>
+                    <li><strong>Daily Rhythm:</strong> Productivity aligns with quiet evening or night periods. Morning obligations may feel burdensome, while late-night creativity and ideation peak.</li>
+                </ul>
+            </div>
+
+            <!-- Psychological & Social Tendencies -->
+            <div class="nrdir-section">
+                <h2><i class="fas fa-users section-icon"></i> Psychological & Social Tendencies</h2>
+                <div class="strengths-challenges">
+                    <div class="strengths-box">
+                        <h3><i class="fas fa-star"></i> Strengths</h3>
+                        <ul>
+                            <li>High creativity, imagination, and innovative thinking</li>
+                            <li>Strong pattern recognition and conceptual linking</li>
+                            <li>High emotional intelligence in responsive contexts</li>
+                            <li>Adaptable and capable of managing complex, dynamic environments</li>
+                        </ul>
+                    </div>
+                    <div class="challenges-box">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Challenges</h3>
+                        <ul>
+                            <li>Prone to stress-induced fatigue or burnout without regulation</li>
+                            <li>May overeat or choose comfort foods during high-pressure periods</li>
+                            <li>Distractibility under low-stimulation or monotonous conditions</li>
+                            <li>Difficulty adhering to rigid schedules or early-morning demands</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="margin-top: 24px;"><strong>Interpersonal Style:</strong> Empathetic, reflective, and thoughtful in discussions. Drawn to intellectually stimulating peers or environments. May withdraw when overstimulated or overstressed.</p>
+            </div>
+
+            <!-- Developmental Guidance -->
+            <div class="nrdir-section">
+                <h2><i class="fas fa-compass section-icon"></i> Developmental Guidance & Growth Pathways</h2>
+                
+                <p><strong>Time & Productivity Management:</strong></p>
+                <ul>
+                    <li>Align major cognitive or creative work with peak late-night or evening alertness</li>
+                    <li>Use morning routines for low-cognitive-load or habitual tasks</li>
+                    <li>Implement "structured flexibility" to respect nocturnal tendencies while meeting obligations</li>
+                </ul>
+
+                <p><strong>Stress & Emotional Regulation:</strong></p>
+                <ul>
+                    <li>Daily mindfulness or breathing practices to regulate cortisol response</li>
+                    <li>Periodic decompression breaks to prevent burnout from high reactivity</li>
+                    <li>Nutrition awareness: choose balanced snacks, prevent compulsive stress eating</li>
+                </ul>
+
+                <p><strong>Learning & Skill Development:</strong></p>
+                <ul>
+                    <li>Leverage integrative, multimodal methods: visualization + discussion + practice</li>
+                    <li>Emphasize project-based or exploratory learning over linear assignments</li>
+                    <li>Use curiosity-driven exploration to channel dopamine needs productively</li>
+                </ul>
+
+                <p><strong>Social & Emotional Growth:</strong></p>
+                <ul>
+                    <li>Engage with creative communities or brainstorming teams to satisfy novelty drive</li>
+                    <li>Monitor emotional thresholds; employ reflection journals to track stress triggers</li>
+                    <li>Build routines that balance periods of social engagement with solitary restorative time</li>
+                </ul>
+
+                <p><strong>Long-term Potential:</strong> Mind Wanderers excel in fields requiring innovation, creativity, and synthesis: research, design, entrepreneurship, or applied sciences. With structured stress and time management, they can harness reactivity and novelty drive as superpowers for problem-solving and creative output.</p>
+            </div>
+
+            <!-- Back Button -->
+            <div class="back-section">
+                <a href="home.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to DNA Types
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-left">
+            <h3>Contact Info</h3>
+            <p>Email: dnameteam@gmail.com</p>
+        </div>
+        <div class="footer-right">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/_bookdeuniverse?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 DNA.Me Project
+        </div>
+    </footer>
+
+</body>
+</html>
+
