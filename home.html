@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--
+        PAGE: DNA Types Overview
+        
+        PURPOSE:
+        This page displays the full catalog of DNA.Me personality phenotypes.
+        Each tile represents a combined behavioral profile derived from:
+        
+        - Circadian pattern (Morning / Night)
+        - Stress response type
+        - Dopamine regulation tendency
+        - Emotional regulation style
+        
+        The grid layout allows scalable expansion as new types are added.
+    -->
     <meta charset="UTF-8">
+    <!-- Ensures universal character encoding -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enables responsive scaling for mobile and desktop -->
     <title>DNA.Me - DNA Types</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Global stylesheet maintains consistent UI across pages -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- External icon library for social media icons -->
     <style>
+        /*
+            BACKGROUND GRADIENT
+            Soft vertical gradient representing spectrum of personality diversity.
+            Sky → lavender → blush progression mirrors emotional and cognitive range.
+        */
         body {
             background: linear-gradient(180deg, #87CEEB 0%, #A7C7E7 20%, #C4B7D9 35%, #D4B8D4 50%, #E4B9C9 65%, #F4BAC4 80%, #FFB6C1 100%);
         }
@@ -23,7 +46,11 @@
             padding-bottom: 500px;
             padding-top: 20px;
         }
-        
+        /*
+            DNA GRID SYSTEM
+            Flexible multi-row layout that wraps automatically.
+            Maintains equal spacing and centered alignment.
+        */
         .dna-images-grid {
             display: flex;
             flex-wrap: wrap;
@@ -33,7 +60,9 @@
             margin-top: 80px;
             margin-bottom: 200px;
         }
-        
+        /*
+            Individual DNA tile container
+        */
         .dna-cell {
             width: calc(25% - 20px);
             display: flex;
@@ -44,12 +73,18 @@
         .dna-cell img {
             max-width: 100%;
         }
-        
+        /*
+            Clickable image wrapper
+        */
         .dna-button {
             display: block;
             text-decoration: none;
         }
-        
+        /*
+            Hover animation:
+            Slight vertical lift + shadow expansion
+            to simulate interactive depth.
+        */
         .dna-button img {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -58,7 +93,10 @@
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
-        
+        /*
+            DNA label styling
+            Bold + subtle white shadow for readability on gradient background.
+        */
         .dna-label {
             font-weight: 700;
             font-size: 1rem;
@@ -80,7 +118,9 @@
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
-        
+        /*
+            Responsive breakpoints
+        */
         @media (max-width: 1200px) {
             .dna-cell {
                 width: calc(50% - 20px);
@@ -106,6 +146,10 @@
 <body class="home-page">
 
     <!-- Minecraft Clouds -->
+     <!--
+        Animated Minecraft-style clouds
+        Provides environmental continuity across all pages.
+    -->
     <div class="clouds-container">
         <div class="cloud cloud-1"></div>
         <div class="cloud cloud-2"></div>
@@ -118,8 +162,10 @@
     </div>
 
     <!-- menu -->
+     <!-- NAVIGATION BAR -->
     <nav class="navbar">
         <div class="nav-left">
+            <!-- Brand logo -->
             <img src="DNA.Me logo.png" alt="logo" class="nav-logo">
         </div>
         <ul class="nav-links">
@@ -132,7 +178,15 @@
 
     <!-- main content -->
     <main class="container">
+        <!--
+            DNA TYPE GRID
+            Each cell:
+            - Label (Type Code + Archetype Name)
+            - Clickable image
+            - Links to dedicated description page
+        -->
         <div class="dna-images-grid">
+             <!-- Example cell structure repeated for all types -->
             <div class="dna-cell">
                 <div class="dna-label">NRDIR-Mind Wanderer</div>
                 <a href="nrdir-description.html" class="dna-button"><img src="images/NRDIRcat.png" alt="NRDIR DNA Type"></a>

@@ -2,16 +2,39 @@
 <html lang="en">
 
 <head>
+    <!-- 
+        DOCUMENT ROLE: Landing Page (Index)
+        
+        This file serves as the entry point of the DNA.Me platform.
+        Its function is to:
+        1. Establish visual identity (branding + atmosphere)
+        2. Introduce the core concept ("Decode Yourself")
+        3. Direct users into the quiz experience
+        
+        Design emphasis: minimal cognitive load, high visual clarity,
+        strong brand recognition, immediate call-to-action.
+    -->
     <meta charset="UTF-8">
+    <!-- Ensures proper universal character encoding -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enables responsive behavior across mobile, tablet, and desktop -->
     <title>DNA.Me – Decode Yourself</title>
+    <!-- Browser tab title + SEO anchor -->
+
     <link rel="stylesheet" href="style.css">
+    <!-- Primary stylesheet controlling layout, animation, and theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- External icon library (used for social media icons in footer) -->
 
 </head>
 
 <body>
-
+ <!-- 
+        ENVIRONMENTAL ANIMATION LAYER
+        Decorative cloud system inspired by pixel-style visuals.
+        Creates motion continuity and a playful atmosphere without
+        interfering with interaction.
+    -->
     <!-- Minecraft Clouds -->
     <div class="clouds-container">
         <div class="cloud cloud-1"></div>
@@ -25,6 +48,15 @@
     </div>
 
     <!-- menu -->
+     <!-- 
+        PRIMARY NAVIGATION BAR
+        Persistent across all pages for structural consistency.
+        Provides direct access to:
+        - DNA type catalog
+        - Quiz engine
+        - About section
+        - Contact page
+    -->
 <nav class="navbar">
     <div class="nav-left">
         <img src="DNA.Me logo.png" alt="logo" class="nav-logo">
@@ -39,6 +71,15 @@
 </nav>
 
 <!-- loader -->
+ <!-- 
+        LOADING SCREEN
+        Purpose:
+        - Smoothens perceived load time
+        - Creates intentional entrance pacing
+        - Prevents abrupt visual pop-in
+        
+        Loader fades out after page fully loads.
+    -->
 <div id="loader">
     <div class="dot-container">
         <span class="dot"></span>
@@ -50,15 +91,47 @@
 </div>
 
 <!-- index -->
+ <!-- 
+        HERO SECTION (Centerpiece)
+        Contains:
+        - Brand title
+        - Primary action trigger
+        
+        Layout is vertically and horizontally centered
+        to create immediate focus hierarchy.
+    -->
 <div class="center-content">
+    <!-- 
+            Stylized title split into two spans
+            allowing independent color styling (DNA. / Me)
+        -->
     <h1 class="main-title"><span class="title-dna">DNA.</span><span class="title-me">Me</span></h1>
+    <!-- 
+            PRIMARY CALL-TO-ACTION BUTTON
+            Directs user into quiz experience.
+            Emoji adds subtle personality without compromising professionalism.
+        -->
     <button class="discover-btn" onclick="goToQuiz()">Discover your DNA type 🔬</button>
 </div>
 
 <script>
+    /*
+            FUNCTION: goToQuiz()
+            Redirects user to quiz interface.
+            Separation into a function maintains cleaner HTML structure.
+        */
     function goToQuiz() {
         window.location.href = "quiz.html";
     }
+    /*
+            LOADER TRANSITION LOGIC
+            Sequence:
+            1. Wait for full window load
+            2. Delay 800ms (controlled pacing)
+            3. Fade out loader via opacity
+            4. Disable interaction
+            5. Remove from layout flow after transition
+        */
 
     window.addEventListener("load", function () {
         setTimeout(() => {
@@ -73,6 +146,15 @@
 </script>
 
 <!-- footer -->
+ <!-- 
+        FOOTER SECTION
+        Provides:
+        - Contact information
+        - External social channel
+        - Copyright attribution
+        
+        Ensures structural completeness and credibility.
+    -->
 <footer class="footer">
     <div class="footer-left">
         <h3>Contact Info</h3>

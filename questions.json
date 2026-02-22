@@ -1,7 +1,7 @@
 [
   {
-    "id": 1,
-    "category": "chronotype",
+    "id": 1, 
+    "category": "chronotype", 
     "question": "When do you feel most productive?",
     "options": [
       { "text": "Early morning (before 9am)", "score": 0 },
