@@ -47,6 +47,7 @@ const quizData = [
 
 // ====== DOM Elements ======
 let current = 0;
+let isTransitioning = false;
 const qText = document.getElementById("qText");
 const optionsDiv = document.getElementById("options");
 const nextBtn = document.getElementById("nextBtn");
@@ -54,6 +55,10 @@ const prevBtn = document.getElementById("prevBtn");
 const doneBtn = document.getElementById("doneBtn");
 const resultCard = document.getElementById("resultCard");
 const finalType = document.getElementById("finalType");
+const progressBar = document.getElementById("progressBar");
+const progressStep = document.getElementById("progressStep");
+const progressPercent = document.getElementById("progressPercent");
+const questionArea = document.querySelector(".question-area");
 
 // ====== Selection State ======
 const selections = {}; // Track selected option index for each question
@@ -63,6 +68,29 @@ function loadQuestion() {
     const q = quizData[current];
     qText.textContent = q.question;
     optionsDiv.innerHTML = "";
+
+    if (questionArea) {
+        questionArea.classList.remove("exit");
+        questionArea.classList.add("enter");
+        requestAnimationFrame(() => {
+            questionArea.classList.remove("enter");
+        });
+    }
+
+    const progress = (current / quizData.length) * 100;
+    const roundedProgress = Math.round(progress);
+
+    if (progressBar) {
+        progressBar.style.width = `${progress}%`;
+    }
+
+    if (progressStep) {
+        progressStep.textContent = `Question ${current + 1} / ${quizData.length}`;
+    }
+
+    if (progressPercent) {
+        progressPercent.textContent = `${roundedProgress}%`;
+    }
 
     q.options.forEach((opt, index) => {
         const btn = document.createElement("button");
@@ -75,22 +103,40 @@ function loadQuestion() {
         }
         
         btn.onclick = () => {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
             // Play click sound on option selection
             playClickSound();
-            
+
             scores[q.category] += opt.score;
             selections[current] = index; // Store selection
-            
-            // Highlight the selected option
+
+            // Highlight selected option and lock input during pause
             const allOptions = optionsDiv.querySelectorAll(".option");
-            allOptions.forEach(o => o.classList.remove("selected"));
+            allOptions.forEach(o => {
+                o.classList.remove("selected");
+                o.disabled = true;
+            });
             btn.classList.add("selected");
-            
-            // Only advance if NOT on the last question
-            if (current < quizData.length - 1) {
-                current++;
-                loadQuestion();
-            }
+
+            // 400ms visual pause before question exits
+            setTimeout(() => {
+                if (questionArea) {
+                    questionArea.classList.add("exit");
+                }
+
+                // Switch question after exit animation
+                setTimeout(() => {
+                    if (current < quizData.length - 1) {
+                        current++;
+                        loadQuestion();
+                    } else {
+                        updateButtons();
+                    }
+                    isTransitioning = false;
+                }, 300);
+            }, 400);
         };
         
         // Add DNA animation on hover and click
@@ -105,6 +151,7 @@ function loadQuestion() {
 
 // ====== Next / Prev ======
 function nextQuestion() {
+    if (isTransitioning) return;
     if (current < quizData.length - 1) {
         current++;
         loadQuestion();
@@ -113,6 +160,7 @@ function nextQuestion() {
 }
 
 function prevQuestion() {
+    if (isTransitioning) return;
     if (current > 0) {
         current--;
         loadQuestion();

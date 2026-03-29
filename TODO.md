@@ -1,13 +1,5 @@
-# About Page Improvement - TODO List
-
-## Plan:
-1. Update CSS with new About page styling (section cards, enhanced headings, better spacing)
-2. Update HTML structure with proper section containers
-3. Test the visual changes
-
-## Status:
-- [x] Update style.css with About page improvements
-- [x] Update about.html with proper section structure
-- [x] Complete and verify changes
-
-
+- [ ] Move progress bar markup outside .quiz-card in quiz.html (above card, direct child of main container)
+- [ ] Keep progress IDs unchanged (#progressBar, #progressStep, #progressPercent)
+- [ ] Update style.css to center progress block with max-width 600px and ~40px margin below
+- [ ] Preserve existing progress bar smooth transition and gradient
+- [ ] Update TODO.md completion state
